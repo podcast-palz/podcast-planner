@@ -1,30 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>Nathan</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+import { getPodcasts } from "./listenApi";
 
-      <footer>
-        <p>Hey this is Reda!</p>
-      </footer>
-    </div>
-  );
+class App extends Component {
+	constructor() {
+		super();
+		this.state = {
+			genres: [],
+			genre: '',
+			podcasts: [],
+		};
+	}
+
+
+
+	componentDidMount() {
+		getPodcasts("genres", {top_level_only: 1}).then(response => {
+			console.log(response);
+
+			this.setState({
+				genres: response.data.genres,
+			})
+		})
+
+
+		getPodcasts("best_podcasts", {genre_id: this.state.genre}).then(response => {
+			console.log(response.data.podcasts);
+			this.setState({
+				podcasts: response.data.podcasts,
+			})
+		})
+	}
+	
+	
+	render() {
+    return (
+        <div className="App">
+          <form action="submit">
+						<label htmlFor="genre"></label>
+						<select name="genre" id="genre">
+							{this.state.genres.map(genre => {
+								return <option value={genre.id}>{genre.name}</option>
+							})}
+						</select>
+					</form>
+					
+					<ul>
+						{this.state.podcasts.map(podcast => {
+							return (
+                <div className="podcast">
+                  <h2>{podcast.title}</h2>
+                  <p>{podcast.description}</p>
+                </div>
+              );
+						})}
+					</ul>
+        </div>
+      );
+  }
 }
 
 export default App;
