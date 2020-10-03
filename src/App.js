@@ -23,7 +23,7 @@ class App extends Component {
       });
     });
     // get podcasts at runtime (any genre)
-    this.getPodcasts();
+    // this.getPodcasts();
   }
 
   // retrieving podcasts with api call from passed params. storing results in state.
@@ -45,10 +45,20 @@ class App extends Component {
       },
       () => {
         //callback function to be run after state is set
+        // TODO get rid of this before production
         // this.getPodcasts(); // get podcasts on genre select
       }
     );
   };
+
+
+  // https://listen-api.listennotes.com/api/v2/podcasts/cecd9c0ce9b346ecbe5f022ea08ec944
+
+  // https://listen-api.listennotes.com/api/v2/episodes/8e0e37bef6f14c3a8e73d8d92ec69821
+
+
+
+
 
   // set user time in state on change of slider
   setUserTime = (event) => {
@@ -57,12 +67,11 @@ class App extends Component {
     });
   };
 
-	
-	// get podcasts on form submit
-	handleSubmit = (event) => {
-		event.preventDefault();
-		this.getPodcasts();
-	}
+  // get podcasts on form submit
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.getPodcasts();
+  };
 
   render() {
     return (
@@ -95,7 +104,9 @@ class App extends Component {
             })}
           </select>
 
-					<button onClick={this.handleSubmit} type="submit">Submit</button>
+          <button onClick={this.handleSubmit} type="submit">
+            Submit
+          </button>
         </form>
 
         <ul>
