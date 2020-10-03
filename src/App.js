@@ -29,75 +29,75 @@ class App extends Component {
 
   // retrieving podcasts with api call from passed params. storing results in state.
   getPodcasts() {
-    listenApi("best_podcasts", { genre_id: this.state.genre }).then(
-      (response) => {
-        console.log(response.data.podcasts);
-        this.setState(
-          {
-            podcasts: response.data.podcasts,
-          }
-          // () => {
-          //   const listCopy = [...this.state.podcasts];
-          //   listCopy.forEach((podcast, index) => {
-          //     listCopy[index].avg_minutes = 0;
-          //   });
+    // listenApi("best_podcasts", { genre_id: this.state.genre }).then(
+    //   (response) => {
+    //     console.log(response.data.podcasts);
+    //     this.setState(
+    //       {
+    //         podcasts: response.data.podcasts,
+    //       }
+    //       // () => {
+    //       //   const listCopy = [...this.state.podcasts];
+    //       //   listCopy.forEach((podcast, index) => {
+    //       //     listCopy[index].avg_minutes = 0;
+    //       //   });
 
-          //   this.setState({
-          //     podcasts: listCopy,
-          //   });
-          // }
-        );
-        this.getPodcastTimes();
-      }
-    );
+    //       //   this.setState({
+    //       //     podcasts: listCopy,
+    //       //   });
+    //       // }
+    //     );
+    //     this.getPodcastTimes();
+    //   }
+    // );
   }
 
   /** get average time of podcast episodes and store in state */
-  getPodcastTimes = () => {
-    // make copy of podcast state
-    let listCopy = [...this.state.podcasts];
+  // getPodcastTimes = () => {
+  //   // make copy of podcast state
+  //   let listCopy = [...this.state.podcasts];
 
-    // list of podcast IDs
-    const podcastIDs = listCopy.map((podcast) => podcast.id);
+  //   // list of podcast IDs
+  //   const podcastIDs = listCopy.map((podcast) => podcast.id);
 
-    // loop through podcast IDs and add average episode times to list copy
-    podcastIDs.forEach((id, index) => {
-      listenApi(`podcasts/${id}`).then((response) => {
-        const episodes = response.data.episodes;
-        console.log(episodes);
+  //   // loop through podcast IDs and add average episode times to list copy
+  //   podcastIDs.forEach((id, index) => {
+  //     listenApi(`podcasts/${id}`).then((response) => {
+  //       const episodes = response.data.episodes;
+  //       console.log(episodes);
 
-        // get average time of episodes
-        const avg_minutes = this.getAverageTime(episodes);
+  //       // get average time of episodes
+  //       const avg_minutes = this.getAverageTime(episodes);
 
-        listCopy[index].avg_minutes = avg_minutes;
-        this.setState({
-          podcasts: listCopy,
-          isLoading: false,
-        });
+  //       listCopy[index].avg_minutes = avg_minutes;
+  //       this.setState({
+  //         podcasts: listCopy,
+  //         isLoading: false,
+  //       });
      
-      });
+  //     });
    
-    });
-    // console.log(listCopy);
+  //   });
+  //   // console.log(listCopy);
 
-    // replace podcast state with new list containing average minutes
+  //   // replace podcast state with new list containing average minutes
 
 
-  };
+  // };
 
-  /** Get average time of episodes */
-  getAverageTime(episodes) {
-    let total = 0;
-    // loop through episodes, return the total audio length in seconds for each epsiode.
-    episodes.forEach((episode) => {
-      total += episode.audio_length_sec;
-    });
-    // converting average time from seconds to minutes for each podcast
-    const minutes = Math.round(total / episodes.length / 60);
+  // /** Get average time of episodes */
+  // getAverageTime(episodes) {
+  //   let total = 0;
+  //   // loop through episodes, return the total audio length in seconds for each epsiode.
+  //   episodes.forEach((episode) => {
+  //     total += episode.audio_length_sec;
+  //   });
+  //   // converting average time from seconds to minutes for each podcast
+  //   const minutes = Math.round(total / episodes.length / 60);
 
-    console.log(minutes);
-    return minutes;
-  }
+  //   console.log(minutes);
+  //   return minutes;
+  // }
 
 
   // set genre in state on change of select dropdown

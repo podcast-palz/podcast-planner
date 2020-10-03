@@ -1,7 +1,8 @@
 import Axios from 'axios';
 
 // listen API
-const key = "5df881c89d644904bc39af8b922c9441";
+// const key = "5df881c89d644904bc39af8b922c9441"; //old key
+const key = "d370e5f11d0a4b14956d88517e75fd8a"; // Nathan's key
 const endpoint = "https://listen-api.listennotes.com/api/v2/";
 
 
