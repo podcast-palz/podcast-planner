@@ -3,6 +3,8 @@ import "./App.css";
 
 import listenApi from "./listenApi";
 
+import firebase from './firebase'
+
 class App extends Component {
   constructor() {
     super();
@@ -12,7 +14,9 @@ class App extends Component {
       genreString: "",
       podcasts: [],
       userTime: 20,
-      isLoading: true,
+			isLoading: true,
+			userPlaylist: {},
+			uid: '',
     };
   }
 
@@ -25,11 +29,68 @@ class App extends Component {
       });
     });
     // get podcasts at runtime (any genre)
-    // this.getPodcasts();
-  }
+		// this.getPodcasts();
+		
+
+	// firebase
+ 	const dbRef = firebase.database().ref();
+    // listen for changes to db and updateA
+    dbRef.on('value', response => {
+      const newState = [];
+      const data = response.val();
+			const user = data.users[this.state.uid];
+			console.log(data);
+      console.log(user);
+
+      for (let key in user) {
+				console.log(key);
+        newState.push({key: key, data: user[key]});
+      }
+      // console.log(newState);
+      this.setState({
+        userPlaylist: newState
+      })
+		})
+
+
+		firebase
+      .auth()
+      .signInAnonymously()
+      .catch(function (error) {
+        // Handle Errors here.
+        const errorCode = error.code;
+				const errorMessage = error.message;
+				console.log(errorCode);
+				console.log(errorMessage);
+        // ...
+      });
+
+			firebase.auth().onAuthStateChanged( (user) => {
+        if (user) {
+          // User is signed in.
+          // var isAnonymous = user.isAnonymous;
+					const uid = user.uid;
+					console.log(uid);
+
+					this.setState({
+						uid,
+					})
+
+          // ...
+        } else {
+          // User is signed out.
+          // ...
+        }
+        // ...
+      });
+
+
+	}
 
   // retrieving podcasts with api call from passed params. storing results in state.
   getPodcasts() {
+		const dbRef = firebase.database().ref();
+
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
@@ -50,9 +111,10 @@ class App extends Component {
       this.setState({
         podcasts: response.data.results,
         isLoading: false,
-      })
+      }, () => {
+				dbRef.child('users').child(this.state.uid).push(this.state.podcasts[0]);
+			})
     })
-
 
 
     // listenApi("best_podcasts", { genre_id: this.state.genre }).then(
@@ -154,6 +216,13 @@ class App extends Component {
     this.getPodcasts();
   };
 
+	removePlaylist = key => {
+		const dbRef = firebase.database().ref();
+		dbRef.child('users').child(this.state.uid).child(key).remove();
+	}
+
+
+
   render() {
     return (
       <div className="App">
@@ -190,22 +259,38 @@ class App extends Component {
           </button>
         </form>
 
+        {this.state.isLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <ul>
+              {this.state.podcasts.map((podcast) => {
+                const duration = Math.round(
+                  parseInt(podcast.audio_length_sec / 60)
+                );
 
-        {this.state.isLoading ? <p>Loading...</p> :     
-          <ul>
-            {this.state.podcasts.map((podcast) => {
-              const duration = Math.round(parseInt(podcast.audio_length_sec / 60));
-              
-              return (
-                <div key={podcast.id} className="podcast">
-                  <h2>{podcast.title_original}</h2>
-                  <p>{podcast.description_highlighted}</p>
-                  <p>{duration} minutes</p>
-                </div>
-              );
-            })}
-          </ul>
-        }
+                return (
+                  <div key={podcast.id} className="podcast">
+                    <h2>{podcast.title_original}</h2>
+                    <p>{podcast.description_highlighted}</p>
+                    <p>{duration} minutes</p>
+                  </div>
+                );
+              })}
+            </ul>
+
+            <ul>
+              {this.state.userPlaylist.map((item) => {
+                return (
+                    <li key={item.key}>
+											{item.data.title_original}
+											<button onClick={() => this.removePlaylist(item.key)}>remove</button>
+										</li>
+                );
+              })}
+            </ul>
+          </>
+        )}
       </div>
     );
   }
