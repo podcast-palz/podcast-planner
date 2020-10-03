@@ -11,6 +11,7 @@ class App extends Component {
       genre: "",
       podcasts: [],
       userTime: 0,
+      isLoading: true,
     };
   }
 
@@ -30,12 +31,74 @@ class App extends Component {
   getPodcasts() {
     listenApi("best_podcasts", { genre_id: this.state.genre }).then(
       (response) => {
-        this.setState({
-          podcasts: response.data.podcasts,
-        });
+        console.log(response.data.podcasts);
+        this.setState(
+          {
+            podcasts: response.data.podcasts,
+          }
+          // () => {
+          //   const listCopy = [...this.state.podcasts];
+          //   listCopy.forEach((podcast, index) => {
+          //     listCopy[index].avg_minutes = 0;
+          //   });
+
+          //   this.setState({
+          //     podcasts: listCopy,
+          //   });
+          // }
+        );
+        this.getPodcastTimes();
       }
     );
   }
+
+  /** get average time of podcast episodes and store in state */
+  getPodcastTimes = () => {
+    // make copy of podcast state
+    let listCopy = [...this.state.podcasts];
+
+    // list of podcast IDs
+    const podcastIDs = listCopy.map((podcast) => podcast.id);
+
+    // loop through podcast IDs and add average episode times to list copy
+    podcastIDs.forEach((id, index) => {
+      listenApi(`podcasts/${id}`).then((response) => {
+        const episodes = response.data.episodes;
+        console.log(episodes);
+
+        // get average time of episodes
+        const avg_minutes = this.getAverageTime(episodes);
+
+        listCopy[index].avg_minutes = avg_minutes;
+        this.setState({
+          podcasts: listCopy,
+          isLoading: false,
+        });
+     
+      });
+   
+    });
+    // console.log(listCopy);
+
+    // replace podcast state with new list containing average minutes
+
+
+  };
+
+  /** Get average time of episodes */
+  getAverageTime(episodes) {
+    let total = 0;
+    // loop through episodes, return the total audio length in seconds for each epsiode.
+    episodes.forEach((episode) => {
+      total += episode.audio_length_sec;
+    });
+    // converting average time from seconds to minutes for each podcast
+    const minutes = Math.round(total / episodes.length / 60);
+
+    console.log(minutes);
+    return minutes;
+  }
+
 
   // set genre in state on change of select dropdown
   selectGenre = (event) => {
@@ -50,15 +113,6 @@ class App extends Component {
       }
     );
   };
-
-
-  // https://listen-api.listennotes.com/api/v2/podcasts/cecd9c0ce9b346ecbe5f022ea08ec944
-
-  // https://listen-api.listennotes.com/api/v2/episodes/8e0e37bef6f14c3a8e73d8d92ec69821
-
-
-
-
 
   // set user time in state on change of slider
   setUserTime = (event) => {
@@ -109,16 +163,20 @@ class App extends Component {
           </button>
         </form>
 
-        <ul>
-          {this.state.podcasts.map((podcast) => {
-            return (
-              <div key={podcast.id} className="podcast">
-                <h2>{podcast.title}</h2>
-                <p>{podcast.description}</p>
-              </div>
-            );
-          })}
-        </ul>
+
+        {this.state.isLoading ? <p>Loading...</p> :     
+          <ul>
+            {this.state.podcasts.map((podcast) => {
+              return (
+                <div key={podcast.id} className="podcast">
+                  <h2>{podcast.title}</h2>
+                  <p>{podcast.description}</p>
+                  <p>{podcast.avg_minutes}</p>
+                </div>
+              );
+            })}
+          </ul>
+        }
       </div>
     );
   }
