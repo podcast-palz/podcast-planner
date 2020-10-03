@@ -9,8 +9,9 @@ class App extends Component {
     this.state = {
       genres: [],
       genre: "",
+      genreString: "",
       podcasts: [],
-      userTime: 0,
+      userTime: 20,
       isLoading: true,
     };
   }
@@ -29,6 +30,31 @@ class App extends Component {
 
   // retrieving podcasts with api call from passed params. storing results in state.
   getPodcasts() {
+    // const genreString = this.state.genreString;
+    const { genre, genreString, userTime } = this.state;
+
+    const len_min = parseInt(userTime) - 5;
+    const len_max = parseInt(userTime) + 5;
+    console.log({len_min, len_max})
+
+    listenApi("search", {
+      q: genreString,
+      len_min,
+      len_max,
+      genre_ids: genre,
+      // sort_by_date: 1,
+      language: "English",
+    }).then(response => {
+      console.log(response);
+
+      this.setState({
+        podcasts: response.data.results,
+        isLoading: false,
+      })
+    })
+
+
+
     // listenApi("best_podcasts", { genre_id: this.state.genre }).then(
     //   (response) => {
     //     console.log(response.data.podcasts);
@@ -105,6 +131,7 @@ class App extends Component {
     this.setState(
       {
         genre: event.target.value,
+        genreString: event.target[event.target.selectedIndex].text,
       },
       () => {
         //callback function to be run after state is set
@@ -167,11 +194,13 @@ class App extends Component {
         {this.state.isLoading ? <p>Loading...</p> :     
           <ul>
             {this.state.podcasts.map((podcast) => {
+              const duration = Math.round(parseInt(podcast.audio_length_sec / 60));
+              
               return (
                 <div key={podcast.id} className="podcast">
-                  <h2>{podcast.title}</h2>
-                  <p>{podcast.description}</p>
-                  <p>{podcast.avg_minutes}</p>
+                  <h2>{podcast.title_original}</h2>
+                  <p>{podcast.description_highlighted}</p>
+                  <p>{duration} minutes</p>
                 </div>
               );
             })}
