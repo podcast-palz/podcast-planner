@@ -5,6 +5,7 @@ import listenApi from "./listenApi";
 
 import firebase from './firebase'
 
+import Form from './Components/Form'
 import Podcast from './Components/Podcast'
 import Playlist from './Components/Playlist'
 
@@ -237,66 +238,29 @@ class App extends Component {
 
 
   render() {
+		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
+
     return (
       <div className="App">
-        <form action="submit">
-          {/* time slider */}
-          <label htmlFor="time">Enter time</label>
-          <input
-            onChange={this.setUserTime}
-            type="range"
-            name="time"
-            id="time"
-            min="0"
-            max="120"
-            value={this.state.userTime}
-          />
-          {/* display time selected */}
-          <span>{this.state.userTime}</span>
+        <Form 
+					setUserTime={this.setUserTime}
+					userTime={userTime}
+					selectGenre={this.selectGenre}
+					genres={genres}
+					handleSubmit={this.handleSubmit}
+				/>
 
-          {/* genre select */}
-          <label htmlFor="genre"></label>
-          <select onChange={this.selectGenre} name="genre" id="genre">
-            <option value="">Choose genre</option>
-            {this.state.genres.map((genre) => {
-              return (
-                <option key={genre.id} value={genre.id}>
-                  {genre.name}
-                </option>
-              );
-            })}
-          </select>
-
-          <button onClick={this.handleSubmit} type="submit">
-            Submit
-          </button>
-        </form>
-
-        {this.state.isLoading ? (
+        {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <>
-            <ul>
-              {this.state.podcasts.map((podcast) => {
-                return <Podcast podcast={podcast} add={this.addToPlaylist} />
-              })}
-            </ul>
-
-            {/* <ul>
-              {this.state.userPlaylist.map((item) => {
-                return (
-                    <li key={item.key}>
-											{item.data.title_original}
-											<button onClick={() => this.removePlaylist(item.key)}>remove</button>
-										</li>
-                );
-              })}
-            </ul> */}
-          					
-					</>
+					<ul>
+						{podcasts.map((podcast) => {
+							return <Podcast podcast={podcast} add={this.addToPlaylist} />
+						})}
+					</ul>          					
         )}
-				
-				<Playlist playlist={this.state.userPlaylist} remove={this.removePlaylist} />
+
+				<Playlist playlist={userPlaylist} remove={this.removePlaylist} />
 
       </div>
     );
