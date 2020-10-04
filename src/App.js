@@ -7,7 +7,8 @@ import firebase from './firebase'
 
 import Form from './Components/Form'
 import Podcast from './Components/Podcast'
-import Playlist from './Components/Playlist'
+// import Playlist from './Components/Playlist'
+import SideMenu from './SideMenu/SideMenu'
 
 class App extends Component {
   constructor() {
@@ -260,7 +261,7 @@ class App extends Component {
 					</ul>
         )}
 
-				<Playlist playlist={userPlaylist} remove={this.removePlaylist} />
+				<SideMenu playlist={userPlaylist} remove={this.removePlaylist} />
 
       </div>
     );
