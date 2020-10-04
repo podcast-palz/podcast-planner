@@ -257,7 +257,7 @@ class App extends Component {
 						{podcasts.map((podcast) => {
 							return <Podcast podcast={podcast} add={this.addToPlaylist} />
 						})}
-					</ul>          					
+					</ul>
         )}
 
 				<Playlist playlist={userPlaylist} remove={this.removePlaylist} />
