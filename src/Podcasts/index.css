@@ -1,0 +1,45 @@
+.podcast {
+  display: grid;
+  gap: 20px;
+  padding: 25px 20px;
+  background-color: #1D3548;
+  color: white;
+  border-radius: 30px;
+  transition: all .4s;
+}
+
+.podcast p {
+  margin: 0;
+}
+
+.podcast button {
+  margin: 0 auto;
+  width: 75%;
+  padding: 10px 0;
+  border: none;
+  border-radius: 10px;
+  text-transform: uppercase;
+  background-color: #fff;
+  color: #50C17F;
+  transition: all .3s;
+}
+
+.podcast button:hover,
+.podcast button:focus {
+  background-color: #50C17F;
+  color: #fff;
+  transform: scale(1.1);
+  border-radius: 11px;
+  /* box-shadow: 2px 2px 5px #fff; */
+}
+
+.podcast h2,
+.podcast h3 {
+  margin: 0;
+}
+
+.podcast img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

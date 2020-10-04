@@ -6,7 +6,7 @@ import listenApi from "./listenApi";
 import firebase from './firebase'
 
 import Form from './Components/Form'
-import Podcast from './Components/Podcast'
+import Podcast from './Podcasts/Podcast'
 import Playlist from './Components/Playlist'
 
 class App extends Component {
@@ -111,8 +111,7 @@ class App extends Component {
       // sort_by_date: 1,
       language: "English",
     }).then(response => {
-      console.log(response);
-
+      console.log(response.data.results);
       this.setState({
         podcasts: response.data.results,
         isLoading: false,
@@ -241,7 +240,7 @@ class App extends Component {
 		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
 
     return (
-      <div className="App">
+      <div className="App wrapper">
         <Form 
 					setUserTime={this.setUserTime}
 					userTime={userTime}
@@ -253,11 +252,14 @@ class App extends Component {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-					<ul>
-						{podcasts.map((podcast) => {
-							return <Podcast podcast={podcast} add={this.addToPlaylist} />
-						})}
-					</ul>
+          <div>
+          	<h2>Your Podcasts!</h2>
+          					<ul className="podcastList">
+          						{podcasts.map((podcast) => {
+          							return <Podcast podcast={podcast} add={this.addToPlaylist} />
+          						})}
+          					</ul>
+          </div>
         )}
 
 				<Playlist playlist={userPlaylist} remove={this.removePlaylist} />
