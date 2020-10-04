@@ -1,0 +1,52 @@
+.form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+label,
+input,
+span, 
+select,
+button {
+    margin: 10px;
+    font-family: 'Hind Siliguri', sans-serif;
+    color: #298776;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+button {
+    width: auto;
+    background-color: #50C17F;
+    color: white;
+}
+
+button:hover,
+button:focus {
+    background-color: #298776;
+}
+
+select {
+    border: none;
+    background-color: #298776;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+}
+
+select:hover,
+select:active {
+    cursor: pointer;
+}
+
+option {
+    font-family: 'Hind Siliguri', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
