@@ -5,6 +5,9 @@ import listenApi from "./listenApi";
 
 import firebase from './firebase'
 
+import Podcast from './Components/Podcast'
+import Playlist from './Components/Playlist'
+
 class App extends Component {
   constructor() {
     super();
@@ -15,7 +18,7 @@ class App extends Component {
       podcasts: [],
       userTime: 20,
 			isLoading: true,
-			userPlaylist: {},
+			userPlaylist: [],
 			uid: '',
     };
   }
@@ -78,7 +81,8 @@ class App extends Component {
 
           // ...
         } else {
-          // User is signed out.
+					// User is signed out.
+					console.log('User signed out');
           // ...
         }
         // ...
@@ -112,7 +116,7 @@ class App extends Component {
         podcasts: response.data.results,
         isLoading: false,
       }, () => {
-				dbRef.child('users').child(this.state.uid).push(this.state.podcasts[0]);
+				// dbRef.child('users').child(this.state.uid).push(this.state.podcasts[0]);
 			})
     })
 
@@ -203,24 +207,33 @@ class App extends Component {
     );
   };
 
-  // set user time in state on change of slider
+  /** set user time in state on change of slider */
   setUserTime = (event) => {
     this.setState({
       userTime: event.target.value,
     });
   };
 
-  // get podcasts on form submit
+  /** get podcasts on form submit */
   handleSubmit = (event) => {
     event.preventDefault();
     this.getPodcasts();
   };
 
+	/** Remove playlist */
 	removePlaylist = key => {
 		const dbRef = firebase.database().ref();
 		dbRef.child('users').child(this.state.uid).child(key).remove();
 	}
 
+	/** Add podcast to playlist */
+	addToPlaylist = podcast => {
+		console.log('add', podcast);
+		const dbRef = firebase.database().ref();
+
+		dbRef.child('users').child(this.state.uid).push(podcast);
+
+	}
 
 
   render() {
@@ -265,21 +278,11 @@ class App extends Component {
           <>
             <ul>
               {this.state.podcasts.map((podcast) => {
-                const duration = Math.round(
-                  parseInt(podcast.audio_length_sec / 60)
-                );
-
-                return (
-                  <div key={podcast.id} className="podcast">
-                    <h2>{podcast.title_original}</h2>
-                    <p>{podcast.description_highlighted}</p>
-                    <p>{duration} minutes</p>
-                  </div>
-                );
+                return <Podcast podcast={podcast} add={this.addToPlaylist} />
               })}
             </ul>
 
-            <ul>
+            {/* <ul>
               {this.state.userPlaylist.map((item) => {
                 return (
                     <li key={item.key}>
@@ -288,9 +291,13 @@ class App extends Component {
 										</li>
                 );
               })}
-            </ul>
-          </>
+            </ul> */}
+          					
+					</>
         )}
+				
+				<Playlist playlist={this.state.userPlaylist} remove={this.removePlaylist} />
+
       </div>
     );
   }
