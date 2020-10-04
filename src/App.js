@@ -243,7 +243,7 @@ class App extends Component {
 		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
 
     return (
-      <div className="App wrapper">
+      <div className="App">
         <Header 
 					setUserTime={this.setUserTime}
 					userTime={userTime}
@@ -255,13 +255,8 @@ class App extends Component {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-          <div>
-          	<h2>Your Podcasts!</h2>
-          					<ul className="podcastList">
-          						{podcasts.map((podcast) => {
-          							return <Podcast podcast={podcast} add={this.addToPlaylist} />
-          						})}
-          					</ul>
+          <div className="podcastContainer">
+            <Podcast podcasts={podcasts} add={this.addToPlaylist} />
           </div>
         )}
 
