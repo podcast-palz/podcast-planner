@@ -3,7 +3,7 @@
 #hamburger,
 label[for="hamburger"] {
 	z-index: 100;
-	position: absolute;
+	position: fixed;
 	right: 2rem;
 	top: 2rem;
 }
@@ -16,6 +16,13 @@ label[for="hamburger"] {
 	cursor: pointer;
 }
 
+#hamburger:checked + label {
+	color: white;
+}
+
+#hamburger:checked ~ .SideMenu {
+	right: 0;
+}
 
 .SideMenu {
 	z-index: 90;
@@ -27,13 +34,23 @@ label[for="hamburger"] {
 	height: 100vh;
 
 	padding: 2rem;
+	/* padding-top: 4rem; */
 
-	background-color: black;
+	background-color: #1D3548;
 	color: white;
 	/* display: none; */
+
+	transition: 0.5s right;
+
+	overflow-y: scroll;
+
+	display: flex;
+	flex-direction: column;
+
 }
 
-#hamburger:checked ~ .SideMenu {
-	right: 0;
+.SideMenu h2 {
+	font-size: 3.2rem;
+	padding-bottom: 2.8rem;
 }
 

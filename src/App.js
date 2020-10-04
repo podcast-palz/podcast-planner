@@ -223,10 +223,16 @@ class App extends Component {
     this.getPodcasts();
   };
 
+	/** Remove podcast from playlist */
+	removePlaylistItem = key => {
+		const dbRef = firebase.database().ref();
+		dbRef.child('users').child(this.state.uid).child(key).remove();
+	}
+
 	/** Remove playlist */
 	removePlaylist = key => {
 		const dbRef = firebase.database().ref();
-		dbRef.child('users').child(this.state.uid).child(key).remove();
+		dbRef.child('users').child(this.state.uid).remove();
 	}
 
 	/** Add podcast to playlist */
@@ -241,6 +247,8 @@ class App extends Component {
 
   render() {
 		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
+
+		// console.log(this.removePlaylistItem);
 
     return (
       <div className="App wrapper">
@@ -257,15 +265,19 @@ class App extends Component {
         ) : (
           <div>
           	<h2>Your Podcasts!</h2>
-          					<ul className="podcastList">
-          						{podcasts.map((podcast) => {
-          							return <Podcast podcast={podcast} add={this.addToPlaylist} />
-          						})}
-          					</ul>
+							<ul className="podcastList">
+								{podcasts.map((podcast) => {
+									return <Podcast podcast={podcast} add={this.addToPlaylist} />
+								})}
+							</ul>
           </div>
         )}
 
-				<SideMenu playlist={userPlaylist} remove={this.removePlaylist} />
+				<SideMenu
+					playlist={userPlaylist}
+					remove={this.removePlaylist}
+					removeItem={this.removePlaylistItem}
+				/>
 
       </div>
     );

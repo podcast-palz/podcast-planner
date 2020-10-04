@@ -1,0 +1,66 @@
+/* Playlist */
+.Playlist {
+	padding: 2rem 1rem;
+
+	border: 1px solid white;
+	border-radius: 2rem;
+
+	position: relative;
+}
+
+.Playlist h3 {
+	font-size: 2.4rem;
+	padding-bottom: 1rem;
+}
+
+.Playlist li {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 0.2rem 0;
+
+	height: 100%;
+}
+
+.Playlist a {
+	width: 100%;
+	height: 100%;
+
+	padding: 0.5rem;
+
+	border-radius: 0.5rem;
+}
+
+.Playlist a:hover,
+.Playlist a:focus {
+	background: #50C17F;
+}
+
+.Playlist button.remove {
+	width: 3.8rem;
+	height: 3.8rem;
+
+	flex-shrink: 0;
+}
+
+.Playlist-delete {
+	background: none;
+	color: white;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	width: auto;
+	height: auto;
+
+	padding: 1rem;
+}
+
+.Playlist button.remove:hover,
+.Playlist button.remove:focus,
+.Playlist-delete:hover,
+.Playlist-delete:focus {
+	background-color: #e44343;
+}
