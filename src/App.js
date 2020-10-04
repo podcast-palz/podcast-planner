@@ -223,10 +223,16 @@ class App extends Component {
     this.getPodcasts();
   };
 
+	/** Remove podcast from playlist */
+	removePlaylistItem = key => {
+		const dbRef = firebase.database().ref();
+		dbRef.child('users').child(this.state.uid).child(key).remove();
+	}
+
 	/** Remove playlist */
 	removePlaylist = key => {
 		const dbRef = firebase.database().ref();
-		dbRef.child('users').child(this.state.uid).child(key).remove();
+		dbRef.child('users').child(this.state.uid).remove();
 	}
 
 	/** Add podcast to playlist */
@@ -242,6 +248,8 @@ class App extends Component {
   render() {
 		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
 
+		// console.log(this.removePlaylistItem);
+
     return (
       <div className="App">
         <Header 
@@ -255,12 +263,17 @@ class App extends Component {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
+
           <div className="podcastContainer">
             <Podcast podcasts={podcasts} add={this.addToPlaylist} />
           </div>
         )}
 
-				<SideMenu playlist={userPlaylist} remove={this.removePlaylist} />
+				<SideMenu
+					playlist={userPlaylist}
+					remove={this.removePlaylist}
+					removeItem={this.removePlaylistItem}
+				/>
 
       </div>
     );
