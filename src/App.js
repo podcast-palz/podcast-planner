@@ -6,8 +6,11 @@ import listenApi from "./listenApi";
 import firebase from './firebase'
 
 import Header from './Header/Header.js';
-import Podcast from './Components/Podcast';
-import Playlist from './Components/Playlist';
+import Podcast from './Podcast/Podcast';
+import Playlist from './Playlist/Playlist';
+import Form from './Components/Form'
+// import Playlist from './Components/Playlist'
+import SideMenu from './SideMenu/SideMenu'
 
 class App extends Component {
   constructor() {
@@ -111,8 +114,7 @@ class App extends Component {
       // sort_by_date: 1,
       language: "English",
     }).then(response => {
-      console.log(response);
-
+      console.log(response.data.results);
       this.setState({
         podcasts: response.data.results,
         isLoading: false,
@@ -241,7 +243,7 @@ class App extends Component {
 		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
 
     return (
-      <div className="App">
+      <div className="App wrapper">
         <Header 
 					setUserTime={this.setUserTime}
 					userTime={userTime}
@@ -253,14 +255,17 @@ class App extends Component {
         {isLoading ? (
           <p>Loading...</p>
         ) : (
-					<ul>
-						{podcasts.map((podcast) => {
-							return <Podcast podcast={podcast} add={this.addToPlaylist} />
-						})}
-					</ul>
+          <div>
+          	<h2>Your Podcasts!</h2>
+          					<ul className="podcastList">
+          						{podcasts.map((podcast) => {
+          							return <Podcast podcast={podcast} add={this.addToPlaylist} />
+          						})}
+          					</ul>
+          </div>
         )}
 
-				<Playlist playlist={userPlaylist} remove={this.removePlaylist} />
+				<SideMenu playlist={userPlaylist} remove={this.removePlaylist} />
 
       </div>
     );
