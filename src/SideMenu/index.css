@@ -1,14 +1,39 @@
+/* SideMenu */
+
+#hamburger,
+label[for="hamburger"] {
+	z-index: 100;
+	position: absolute;
+	right: 2rem;
+	top: 2rem;
+}
+
+#hamburger {
+	opacity: 0;
+}
+
+label[for="hamburger"] {
+	cursor: pointer;
+}
+
+
 .SideMenu {
+	z-index: 90;
 	position: fixed;
-	right: 0;
+	right: -32rem;
 	top: 0;
 
-	width: 30rem;
+	width: 32rem;
 	height: 100vh;
 
 	padding: 2rem;
 
 	background-color: black;
 
-	display: none;
+	/* display: none; */
 }
+
+#hamburger:checked ~ .SideMenu {
+	right: 0;
+}
+
