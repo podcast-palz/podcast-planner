@@ -1,1 +1,14 @@
+.wrapper {
+  max-width: 1280px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.podcastList {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  justify-content: center;
+}
+
 
