@@ -5,9 +5,9 @@ import listenApi from "./listenApi";
 
 import firebase from './firebase'
 
-import Form from './Components/Form'
-import Podcast from './Components/Podcast'
-import Playlist from './Components/Playlist'
+import Header from './Header/Header.js';
+import Podcast from './Components/Podcast';
+import Playlist from './Components/Playlist';
 
 class App extends Component {
   constructor() {
@@ -242,7 +242,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Form 
+        <Header 
 					setUserTime={this.setUserTime}
 					userTime={userTime}
 					selectGenre={this.selectGenre}
