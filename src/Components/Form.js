@@ -1,12 +1,13 @@
-import React from 'react'
+import React from 'react';
+import "../Header/index.css";
 
 export default function Form(props) {
 	const { setUserTime, userTime, selectGenre, genres, handleSubmit } = props;
 
 	return (
-		<form action="submit">
+		<form action="submit" className="form">
 			{/* time slider */}
-			<label htmlFor="time">Enter time</label>
+			<label htmlFor="time">Select Podcast Duration (mins)</label>
 			<input
 				onChange={setUserTime}
 				type="range"
@@ -21,8 +22,9 @@ export default function Form(props) {
 
 			{/* genre select */}
 			<label htmlFor="genre"></label>
+			
 			<select onChange={selectGenre} name="genre" id="genre">
-				<option value="">Choose genre</option>
+				<option value="">Select Genre</option>
 				{genres.map((genre) => {
 					return (
 						<option key={genre.id} value={genre.id}>

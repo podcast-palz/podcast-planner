@@ -5,12 +5,12 @@ import listenApi from "./listenApi";
 
 import firebase from './firebase'
 
+import Header from './Header/Header.js';
+import Podcast from './Podcast/Podcast';
+import Playlist from './Playlist/Playlist';
 import Form from './Components/Form'
-
-import Podcast from './Components/Podcast'
 // import Playlist from './Components/Playlist'
 import SideMenu from './SideMenu/SideMenu'
-
 
 class App extends Component {
   constructor() {
@@ -244,7 +244,7 @@ class App extends Component {
 
     return (
       <div className="App wrapper">
-        <Form 
+        <Header 
 					setUserTime={this.setUserTime}
 					userTime={userTime}
 					selectGenre={this.selectGenre}
