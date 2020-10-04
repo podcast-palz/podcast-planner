@@ -7,8 +7,8 @@ import firebase from './firebase'
 
 import Header from './Header/Header.js';
 import Podcast from './Podcast/Podcast';
-import Playlist from './Playlist/Playlist';
-import Form from './Components/Form'
+// import Playlist from './Playlist/Playlist';
+// import Form from './Form/Form'
 // import Playlist from './Components/Playlist'
 import SideMenu from './SideMenu/SideMenu'
 

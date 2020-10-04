@@ -1,5 +1,5 @@
 import React from 'react';
-import "../Header/index.css";
+// import "../Header/index.css";
 
 export default function Form(props) {
 	const { setUserTime, userTime, selectGenre, genres, handleSubmit } = props;
