@@ -8,19 +8,24 @@ import './index.css'
 export default function Playlist(props) {
 	const { playlist, title, removeItem, remove } = props;
 		
-	console.log(remove);
-	console.log(removeItem);
+	// console.log(remove);
+	// console.log(removeItem);
+
+	console.log('playlist', playlist);
 
 	return (
 		<div className="Playlist">
+			<h3>
+				<label className="sr-only" htmlFor="">{title ? title : "Untitled Playlist"}</label>
+				<input type="text" id="" placeholder={title ? title : "Untitled Playlist"}/>
+			</h3>
 
-			<h3>{title ? title : "Untitled Playlist"}</h3>
-			<button className="Playlist-delete" onClick={() => remove()}>
+			<button className="Playlist-delete" onClick={() => remove(playlist.key)}>
 				<FontAwesomeIcon icon={faTimes} />
 			</button>
 			
 			<ul>
-				{playlist.map((podcast) => {
+				{playlist.data.map((podcast) => {
 					const { title_original, listennotes_url } = podcast.data;
 					return (
 						<li key={podcast.key}>

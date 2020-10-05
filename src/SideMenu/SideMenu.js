@@ -8,7 +8,7 @@ import './index.css'
 
 
 export default function SideMenu(props) {
-	const { playlist, remove, removeItem } = props;
+	const { playlists, remove, removeItem } = props;
 	
 	return (
 		<>
@@ -18,11 +18,15 @@ export default function SideMenu(props) {
 			</label>
 			<div className="SideMenu">
 				<h2>Your Playlists</h2>
-				<Playlist
-					playlist={playlist}
-					remove={remove}
-					removeItem={removeItem}
-				/>
+				
+				{playlists.map(playlist => {
+					return <Playlist
+						playlist={playlist}
+						remove={remove}
+						removeItem={removeItem}
+					/>
+				})}
+				
 			</div>
 		</>
 	)

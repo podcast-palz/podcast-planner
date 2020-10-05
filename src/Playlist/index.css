@@ -9,9 +9,25 @@
 }
 
 .Playlist h3 {
-	font-size: 2.4rem;
+	font-size: 2rem;
 	padding-bottom: 1rem;
 }
+
+.Playlist input[type="text"] {
+	background-color: #1D3548;
+	color: white;
+	border: none;
+
+	font-family: 'Poiret One', cursive;
+	text-transform: initial;
+
+	width: 80%;
+}
+
+.Playlist input[type="text"]::placeholder {
+	opacity: 100%;
+}
+
 
 .Playlist li {
 	display: flex;

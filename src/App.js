@@ -26,6 +26,8 @@ class App extends Component {
 			isLoading: true,
 			userPlaylist: [],
 			uid: '',
+			userPlaylists: [],
+			currentPlaylist: '',
     };
   }
 
@@ -47,18 +49,55 @@ class App extends Component {
     dbRef.on('value', response => {
       const newState = [];
       const data = response.val();
-			const user = data.users[this.state.uid];
-			console.log(data);
-      console.log(user);
+			
+			let playlistKey = '';
 
-      for (let key in user) {
-				console.log(key);
-        newState.push({key: key, data: user[key]});
-      }
-      // console.log(newState);
-      this.setState({
-        userPlaylist: newState
-      })
+			// if the database isn't empty
+			if (data) {
+				const user = data.users[this.state.uid];
+				console.log('data', data);
+	      console.log('user', user);
+
+				// if the user exists
+				if (user) {
+					for (let playlist in user) {
+						playlistKey = playlist;
+
+						const newPlaylist = [];
+						for (let podcast in user[playlist]) {
+
+							newPlaylist.push({ key: podcast, data: user[playlist][podcast]})
+							console.log('playlist', playlist[podcast]);
+						}
+						
+						console.log('newPlaylist', newPlaylist);
+
+						// playlistKey = playlist;
+						// console.log(key);
+						newState.push({ key: playlist, data: newPlaylist });
+					}
+					// console.log(newState);
+
+					console.log('playlistKey', playlistKey);
+					console.log('newState', newState);
+					this.setState({
+						userPlaylists: newState,
+						currentPlaylist: playlistKey,
+					})
+
+				} else {
+					// if the user doesn't exist
+					this.setState({
+						userPlaylists: [],
+					})
+				}
+			} else {
+				this.setState({
+					userPlaylists: [],
+				})
+			}
+
+	      
 		})
 
 
@@ -104,14 +143,13 @@ class App extends Component {
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
-		/** @type {number} minimum length of time to search */
-    const len_min = 'string';
+    // const len_min = parseInt(userTime) - 5;
     const len_max = parseInt(userTime) + 5;
-    console.log({len_min, len_max})
+    // console.log({len_min, len_max})
 
     listenApi("search", {
       q: genreString,
-      len_min,
+      // len_min,
       len_max,
       genre_ids: genre,
       // sort_by_date: 1,
@@ -232,27 +270,53 @@ class App extends Component {
 	/** Remove podcast from playlist */
 	removePlaylistItem = key => {
 		const dbRef = firebase.database().ref();
-		dbRef.child('users').child(this.state.uid).child(key).remove();
+		const { uid, currentPlaylist } = this.state;
+		dbRef.child('users').child(uid).child(currentPlaylist).child(key).remove();
 	}
 
+	
 	/** Remove playlist */
 	removePlaylist = key => {
+		console.log('removePlaylist', key);
 		const dbRef = firebase.database().ref();
-		dbRef.child('users').child(this.state.uid).remove();
+		const { uid } = this.state;
+		dbRef.child('users').child(uid).child(key).remove();
 	}
+
 
 	/** Add podcast to playlist */
 	addToPlaylist = podcast => {
-		console.log('add', podcast);
 		const dbRef = firebase.database().ref();
+		const { uid, userPlaylists, currentPlaylist } = this.state;
 
-		dbRef.child('users').child(this.state.uid).push(podcast);
+		// if playlist doesn't have content
+		if (!userPlaylists.length) {
+			this.createPlaylist(podcast);
+		} else { // if playlist has content
+			dbRef.child('users').child(uid).child(currentPlaylist).push(podcast);
+		}
+	}
 
+
+	/** Create a new playlist */
+	createPlaylist = podcast => {
+		const dbRef = firebase.database().ref();
+		const { uid, currentPlaylist } = this.state;
+
+		const newKey = dbRef.child('users').child(uid).push().key;
+		console.log('newKey', newKey);
+
+		this.setState({
+			currentPlaylist: newKey,
+		}, () => {
+			console.log({uid, currentPlaylist, podcast});
+			dbRef.child('users').child(uid).child(newKey).push(podcast);
+		})
 	}
 
 
   render() {
-		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
+		const { isLoading, podcasts, userPlaylists, userTime, genres } = this.state;
 
 		// console.log(this.removePlaylistItem);
 
@@ -276,7 +340,7 @@ class App extends Component {
         )}
 
 				<SideMenu
-					playlist={userPlaylist}
+					playlists={userPlaylists}
 					remove={this.removePlaylist}
 					removeItem={this.removePlaylistItem}
 				/>
