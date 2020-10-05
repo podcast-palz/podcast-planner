@@ -6,21 +6,21 @@ import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 import './index.css'
 
 export default function Playlist(props) {
-	const { playlist, title, removeItem, remove } = props;
-		
+	const { playlist, title, removeItem, remove, setActive, current } = props;
+	const { key } = playlist;
 	// console.log(remove);
 	// console.log(removeItem);
 
 	console.log('playlist', playlist);
 
 	return (
-		<div className="Playlist">
+		<li key={key} className={`Playlist ${key === current ? 'selected' : ''}`} onClick={() => setActive(key)}>
 			<h3>
-				<label className="sr-only" htmlFor="">{title ? title : "Untitled Playlist"}</label>
-				<input type="text" id="" placeholder={title ? title : "Untitled Playlist"}/>
+				<label className="sr-only" htmlFor={key}>{title ? title : "Untitled Playlist"}</label>
+				<input type="text" id={key} placeholder={title ? title : "Untitled Playlist"}/>
 			</h3>
 
-			<button className="Playlist-delete" onClick={() => remove(playlist.key)}>
+			<button className="Playlist-delete" onClick={() => remove(key)}>
 				<FontAwesomeIcon icon={faTimes} />
 			</button>
 			
@@ -41,6 +41,6 @@ export default function Playlist(props) {
 				})}
 			</ul>
 
-		</div>
+		</li>
 	)
 }

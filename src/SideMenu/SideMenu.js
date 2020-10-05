@@ -8,7 +8,7 @@ import './index.css'
 
 
 export default function SideMenu(props) {
-	const { playlists, remove, removeItem, createPlaylist } = props;
+	const { playlists, remove, removeItem, createPlaylist, setActive, current } = props;
 	
 	return (
 		<>
@@ -21,13 +21,19 @@ export default function SideMenu(props) {
 				
 				<button onClick={() => createPlaylist(0)}><FontAwesomeIcon icon={faPlus} /></button>
 
-				{playlists.map(playlist => {
-					return <Playlist
-						playlist={playlist}
-						remove={remove}
-						removeItem={removeItem}
-					/>
-				})}
+				<ul>
+
+					{playlists.map(playlist => {
+						return <Playlist
+							playlist={playlist}
+							remove={remove}
+							removeItem={removeItem}
+							setActive={setActive}
+							current={current}
+						/>
+					})}
+
+				</ul>
 				
 			</div>
 		</>

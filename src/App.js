@@ -61,8 +61,14 @@ class App extends Component {
 				// if the user exists
 				if (user) {
 					for (let playlist in user) {
-						playlistKey = playlist;
-
+						
+						// if no playlist selected, set as this playlist
+						if (!this.state.currentPlaylist) {
+							this.setState({
+								currentPlaylist: playlist,
+							})
+						}
+						
 						const newPlaylist = [];
 						for (let podcast in user[playlist]) {
 
@@ -82,7 +88,6 @@ class App extends Component {
 					console.log('newState', newState);
 					this.setState({
 						userPlaylists: newState,
-						currentPlaylist: playlistKey,
 					})
 
 				} else {
@@ -314,9 +319,17 @@ class App extends Component {
 		})
 	}
 
+	/** set the currently active playlist */
+	setActivePlaylist = key => {
+		console.log('active: ', key);
+		this.setState({
+			currentPlaylist: key,
+		})
+	}
+
 
   render() {
-		const { isLoading, podcasts, userPlaylists, userTime, genres } = this.state;
+		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist } = this.state;
 
 		// console.log(this.removePlaylistItem);
 
@@ -344,6 +357,8 @@ class App extends Component {
 					remove={this.removePlaylist}
 					removeItem={this.removePlaylistItem}
 					createPlaylist={this.createPlaylist}
+					setActive={this.setActivePlaylist}
+					current={currentPlaylist}
 				/>
 
 				<Footer />

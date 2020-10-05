@@ -1,6 +1,7 @@
 /* Playlist */
 .Playlist {
 	padding: 2rem 1rem;
+	margin-bottom: 1rem;
 
 	border: 1px solid white;
 	border-radius: 2rem;
@@ -79,4 +80,10 @@
 .Playlist-delete:hover,
 .Playlist-delete:focus {
 	background-color: #e44343;
+}
+
+
+.Playlist.selected,
+.Playlist.selected input[type="text"] {
+	background-color: #365975;
 }
