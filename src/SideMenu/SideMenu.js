@@ -2,13 +2,13 @@ import React from 'react'
 import Playlist from '../Playlist/Playlist'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import './index.css'
 
 
 export default function SideMenu(props) {
-	const { playlists, remove, removeItem } = props;
+	const { playlists, remove, removeItem, createPlaylist } = props;
 	
 	return (
 		<>
@@ -19,6 +19,8 @@ export default function SideMenu(props) {
 			<div className="SideMenu">
 				<h2>Your Playlists</h2>
 				
+				<button onClick={() => createPlaylist(0)}><FontAwesomeIcon icon={faPlus} /></button>
+
 				{playlists.map(playlist => {
 					return <Playlist
 						playlist={playlist}

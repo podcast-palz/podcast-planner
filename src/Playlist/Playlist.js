@@ -26,15 +26,18 @@ export default function Playlist(props) {
 			
 			<ul>
 				{playlist.data.map((podcast) => {
-					const { title_original, listennotes_url } = podcast.data;
-					return (
-						<li key={podcast.key}>
-							<a href={listennotes_url} rel="noreferrer">{title_original}</a>
-							<button className="remove" onClick={() => removeItem(podcast.key)}>
-								<FontAwesomeIcon icon={faTrashAlt} />
-							</button>
-						</li>
-					);
+					// if podcast contains data
+					if (podcast.data) {
+						const { title_original, listennotes_url } = podcast.data;
+						return (
+							<li key={podcast.key}>
+								<a href={listennotes_url} rel="noreferrer">{title_original}</a>
+								<button className="remove" onClick={() => removeItem(podcast.key)}>
+									<FontAwesomeIcon icon={faTrashAlt} />
+								</button>
+							</li>
+						);
+						}
 				})}
 			</ul>
 

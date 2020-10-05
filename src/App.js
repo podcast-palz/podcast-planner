@@ -343,6 +343,7 @@ class App extends Component {
 					playlists={userPlaylists}
 					remove={this.removePlaylist}
 					removeItem={this.removePlaylistItem}
+					createPlaylist={this.createPlaylist}
 				/>
 
 				<Footer />
