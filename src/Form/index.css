@@ -18,13 +18,13 @@ button {
 
 button {
     width: auto;
-    background-color: #50C17F;
+    background-color: #1D3548;
     color: white;
 }
 
 button:hover,
 button:focus {
-    background-color: #298776;
+    background-color: #50C17F;
 }
 
 select {
