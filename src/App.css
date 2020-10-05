@@ -25,3 +25,9 @@ button:focus {
   border-radius: 11px;
   /* box-shadow: 2px 2px 5px #fff; */
 }
+
+.App {
+	position: relative;
+	min-height: 100vh;
+	padding-bottom: 20rem;
+}

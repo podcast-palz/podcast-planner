@@ -22,7 +22,7 @@ class App extends Component {
       genre: "",
       genreString: "",
       podcasts: [],
-      userTime: 20,
+			userTime: 20,
 			isLoading: true,
 			userPlaylist: [],
 			uid: '',
@@ -97,14 +97,15 @@ class App extends Component {
 
 	}
 
-  // retrieving podcasts with api call from passed params. storing results in state.
+	/** retrieving podcasts with api call from passed params. storing results in state. */
   getPodcasts() {
 		const dbRef = firebase.database().ref();
 
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
-    const len_min = parseInt(userTime) - 5;
+		/** @type {number} minimum length of time to search */
+    const len_min = 'string';
     const len_max = parseInt(userTime) + 5;
     console.log({len_min, len_max})
 
@@ -197,8 +198,11 @@ class App extends Component {
   // }
 
 
-  // set genre in state on change of select dropdown
-  selectGenre = (event) => {
+	/**
+	 * set genre in state on change of select dropdown
+	 * @param {event} event on change of select
+	 */
+   selectGenre = (event) => {
     this.setState(
       {
         genre: event.target.value,
@@ -276,6 +280,8 @@ class App extends Component {
 					remove={this.removePlaylist}
 					removeItem={this.removePlaylistItem}
 				/>
+
+				<Footer />
 
       </div>
     );
