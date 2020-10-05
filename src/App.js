@@ -10,7 +10,9 @@ import Podcast from './Podcast/Podcast';
 // import Playlist from './Playlist/Playlist';
 // import Form from './Form/Form'
 // import Playlist from './Components/Playlist'
-import SideMenu from './SideMenu/SideMenu'
+import SideMenu from './SideMenu/SideMenu';
+
+import Footer from './Footer/Footer.js';
 
 class App extends Component {
   constructor() {

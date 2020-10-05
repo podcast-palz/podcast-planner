@@ -1,0 +1,17 @@
+.footer {
+   height: 40vh; 
+   width: 100%;
+}
+
+.container {
+   width: 70%;
+   flex-direction: row; 
+}
+
+.containerDiv p {
+   color:  black;
+   line-height: 25px;
+   font-size: 10px;
+}
+
+
