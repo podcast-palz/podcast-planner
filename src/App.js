@@ -284,8 +284,13 @@ class App extends Component {
 	removePlaylist = key => {
 		console.log('removePlaylist', key);
 		const dbRef = firebase.database().ref();
-		const { uid } = this.state;
+		const { uid, userPlaylists } = this.state;
 		dbRef.child('users').child(uid).child(key).remove();
+
+		// Reset active playlist
+			this.setState({
+				currentPlaylist: '',
+			})
 	}
 
 
@@ -315,6 +320,7 @@ class App extends Component {
 			currentPlaylist: newKey,
 		}, () => {
 			console.log({uid, currentPlaylist, podcast});
+			dbRef.child('users').child(uid).child(newKey).push(0);
 			dbRef.child('users').child(uid).child(newKey).push(podcast);
 		})
 	}
