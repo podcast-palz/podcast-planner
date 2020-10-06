@@ -283,7 +283,7 @@ class App extends Component {
 				/>
 
         {isLoading ? (
-          <p>Loading...</p>
+          <p className="loading">Loading...</p>
         ) : (
           <div className="podcastContainer">
             <Podcast podcasts={podcasts} add={this.addToPlaylist} />

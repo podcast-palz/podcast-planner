@@ -6,6 +6,7 @@ class Header extends Component {
     render() {
         return (
             <header>
+                <nav className="navBar"></nav>
                 <div className="flexContainer wrapper">
                     <div className="containerOne">
                         <h1>Podcast Planner</h1>

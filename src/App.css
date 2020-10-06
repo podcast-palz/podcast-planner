@@ -31,3 +31,11 @@ button:focus {
 	min-height: 100vh;
 	padding-bottom: 20rem;
 }
+
+.loading {
+  text-align: center;
+  font-family: 'Poiret One', cursive;
+  font-size: 25px;
+  letter-spacing: 5px;
+  margin-top: 20px;
+}
