@@ -5,6 +5,7 @@ import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 
 import './index.css'
 
+
 export default function Playlist(props) {
 	const { playlist, title, removeItem, remove, setActive, current, rename, updateName } = props;
 	const { key, playlist_title } = playlist;
@@ -22,6 +23,7 @@ export default function Playlist(props) {
 
 	return (
 		<li key={key} className={`Playlist ${key === current ? 'selected' : ''}`} onClick={() => setActive(key)}>
+	
 			<h3>
 				<label className="sr-only" htmlFor={key}>{playlist_title}</label>
 				<input 

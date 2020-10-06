@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import listenApi from "./listenApi";
+import listenApi, { errorResponse } from "./listenApi";
 
 import firebase from './firebase'
 
@@ -24,7 +24,8 @@ class App extends Component {
       genreString: "",
       podcasts: [],
 			userTime: 20,
-			isLoading: true,
+			isStarted: false,
+			isLoading: false,
 			userPlaylist: [],
 			uid: '',
 			userPlaylists: [],
@@ -35,12 +36,15 @@ class App extends Component {
 
   // at runtime
   componentDidMount() {
-    // retrieving the genres, storing them in state.
+		// retrieving the genres, storing them in state.
     listenApi("genres", { top_level_only: 1 }).then((response) => {
-      this.setState({
+			console.log(response.status);
+			this.setState({
         genres: response.data.genres,
       });
-    });
+    }).catch(error => {
+			alert(errorResponse(error));
+		});
     // get podcasts at runtime (any genre)
 		// this.getPodcasts();
 		
@@ -151,18 +155,20 @@ class App extends Component {
 
 	/** retrieving podcasts with api call from passed params. storing results in state. */
   getPodcasts() {
-		const dbRef = firebase.database().ref();
-
+		this.setState({
+			isStarted: true,
+			isLoading: true,
+		})
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
-    // const len_min = parseInt(userTime) - 5;
+    const len_min = 4;
     const len_max = parseInt(userTime) + 5;
     // console.log({len_min, len_max})
 
     listenApi("search", {
       q: genreString,
-      // len_min,
+      len_min,
       len_max,
       genre_ids: genre,
       // sort_by_date: 1,
@@ -172,10 +178,10 @@ class App extends Component {
       this.setState({
         podcasts: response.data.results,
         isLoading: false,
-      }, () => {
-				// dbRef.child('users').child(this.state.uid).push(this.state.podcasts[0]);
-			})
-    })
+      })
+		}).catch(error => {
+			alert(errorResponse(error));
+		});
 
 
     // listenApi("best_podcasts", { genre_id: this.state.genre }).then(
@@ -258,11 +264,6 @@ class App extends Component {
       {
         genre: event.target.value,
         genreString: event.target[event.target.selectedIndex].text,
-      },
-      () => {
-        //callback function to be run after state is set
-        // TODO get rid of this before production
-        // this.getPodcasts(); // get podcasts on genre select
       }
     );
   };
@@ -282,8 +283,12 @@ class App extends Component {
    * @param {event} event onClick
    */
   handleSubmit = (event) => {
-    event.preventDefault();
-    this.getPodcasts();
+		event.preventDefault();
+		if (this.state.genre) {
+			this.getPodcasts();
+		} else {
+			alert('Please select a genre');
+		}
   };
 
 	/**
@@ -378,7 +383,7 @@ class App extends Component {
 
 
   render() {
-		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName } = this.state;
+		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName, isStarted } = this.state;
 
 		// console.log(this.removePlaylistItem);
 
@@ -390,13 +395,14 @@ class App extends Component {
 					selectGenre={this.selectGenre}
 					genres={genres}
 					handleSubmit={this.handleSubmit}
+					loading={isLoading}
 				/>
 
         {isLoading ? (
           <p className="loading">Loading...</p>
         ) : (
           <div className="podcastContainer">
-            <Podcast podcasts={podcasts} add={this.addToPlaylist} />
+            <Podcast podcasts={podcasts} add={this.addToPlaylist} isStarted={isStarted} />
           </div>
         )}
 
