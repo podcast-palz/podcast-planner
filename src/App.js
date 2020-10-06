@@ -449,9 +449,9 @@ class App extends Component {
                 />}
               />
       
-              {/* <Route path="/"
+              <Route path="/"
                 render={(props) => <Footer {...props} />}
-              /> */}
+              />
       
             </div>
           </Router>
