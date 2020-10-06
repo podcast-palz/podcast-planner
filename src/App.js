@@ -13,6 +13,7 @@ import Podcast from './Podcast/Podcast';
 import SideMenu from './SideMenu/SideMenu';
 
 import Footer from './Footer/Footer.js';
+import Playlist from "./Playlist/Playlist";
 
 class App extends Component {
   constructor() {
@@ -28,6 +29,7 @@ class App extends Component {
 			uid: '',
 			userPlaylists: [],
 			currentPlaylist: '',
+			playlistName: '',
     };
   }
 
@@ -60,6 +62,7 @@ class App extends Component {
 
 				// if the user exists
 				if (user) {
+					// loop through playlists
 					for (let playlist in user) {
 						
 						// if no playlist selected, set as this playlist
@@ -69,18 +72,22 @@ class App extends Component {
 							})
 						}
 						
-						const newPlaylist = [];
-						for (let podcast in user[playlist]) {
 
-							newPlaylist.push({ key: podcast, data: user[playlist][podcast]})
-							console.log('playlist', playlist[podcast]);
+						const newPlaylist = [];
+
+						// loop through podcasts inside playlist
+						for (let podcast in user[playlist]) {
+							if (podcast !== 'playlist_title') {
+								newPlaylist.push({ key: podcast, data: user[playlist][podcast]})
+								console.log('playlist', playlist[podcast]);
+							}
 						}
 						
 						console.log('newPlaylist', newPlaylist);
 
 						// playlistKey = playlist;
 						// console.log(key);
-						newState.push({ key: playlist, data: newPlaylist });
+						newState.push({ key: playlist, playlist_title: user[playlist].playlist_title, data: newPlaylist });
 					}
 					// console.log(newState);
 
@@ -297,7 +304,7 @@ class App extends Component {
 	/** Add podcast to playlist */
 	addToPlaylist = podcast => {
 		const dbRef = firebase.database().ref();
-		const { uid, userPlaylists, currentPlaylist } = this.state;
+		const { uid, userPlaylists, currentPlaylist, playlistName } = this.state;
 
 		// if playlist doesn't have content
 		if (!userPlaylists.length) {
@@ -311,16 +318,16 @@ class App extends Component {
 	/** Create a new playlist */
 	createPlaylist = podcast => {
 		const dbRef = firebase.database().ref();
-		const { uid, currentPlaylist } = this.state;
-
+		const { uid, currentPlaylist, playlistName } = this.state;
 		const newKey = dbRef.child('users').child(uid).push().key;
-		console.log('newKey', newKey);
+		// console.log('newKey', newKey);
+
 
 		this.setState({
 			currentPlaylist: newKey,
 		}, () => {
 			console.log({uid, currentPlaylist, podcast});
-			dbRef.child('users').child(uid).child(newKey).push(0);
+			dbRef.child('users').child(uid).child(newKey).set({playlist_title: "Untitled Playlist"});
 			dbRef.child('users').child(uid).child(newKey).push(podcast);
 		})
 	}
@@ -334,8 +341,29 @@ class App extends Component {
 	}
 
 
+	/** 
+	 * Rename playlist in database
+	 * @param {string} key The key of the podcast to rename
+	 */
+	renamePlaylist = key => {
+		const dbRef = firebase.database().ref();
+		const { uid, currentPlaylist, playlistName } = this.state;
+		console.log('rename', key, playlistName);
+
+		dbRef.child('users').child(uid).child(currentPlaylist).child('playlist_title').set(playlistName);
+	}
+
+	/** Uupdate playlist name in state on user input */
+	updatePlaylistName = event => {
+		const newName = event.target.value;
+		this.setState({
+			playlistName: newName,
+		}, this.renamePlaylist)
+	}
+
+
   render() {
-		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist } = this.state;
+		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName } = this.state;
 
 		// console.log(this.removePlaylistItem);
 
@@ -365,6 +393,9 @@ class App extends Component {
 					createPlaylist={this.createPlaylist}
 					setActive={this.setActivePlaylist}
 					current={currentPlaylist}
+					rename={this.renamePlaylist}
+					updateName={this.updatePlaylistName}
+					title={playlistName}
 				/>
 
 				<Footer />

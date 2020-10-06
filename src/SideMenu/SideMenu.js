@@ -8,7 +8,7 @@ import './index.css'
 
 
 export default function SideMenu(props) {
-	const { playlists, remove, removeItem, createPlaylist, setActive, current } = props;
+	const { playlists, remove, removeItem, createPlaylist, setActive, current, rename, updateName, title } = props;
 	
 	return (
 		<>
@@ -30,6 +30,9 @@ export default function SideMenu(props) {
 							removeItem={removeItem}
 							setActive={setActive}
 							current={current}
+							rename={rename}
+							updateName={updateName}
+							title={title}
 						/>
 					})}
 
