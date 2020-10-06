@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import listenApi from "./listenApi";
+import listenApi, { errorResponse } from "./listenApi";
 
 import firebase from './firebase'
 
@@ -30,17 +30,21 @@ class App extends Component {
 			userPlaylists: [],
 			currentPlaylist: '',
 			playlistName: '',
+			apiError: '',
     };
   }
 
   // at runtime
   componentDidMount() {
-    // retrieving the genres, storing them in state.
+		// retrieving the genres, storing them in state.
     listenApi("genres", { top_level_only: 1 }).then((response) => {
-      this.setState({
+			console.log(response.status);
+			this.setState({
         genres: response.data.genres,
       });
-    });
+    }).catch(error => {
+			alert(errorResponse(error));
+		});
     // get podcasts at runtime (any genre)
 		// this.getPodcasts();
 		
@@ -156,13 +160,13 @@ class App extends Component {
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
-    // const len_min = parseInt(userTime) - 5;
+    const len_min = 4;
     const len_max = parseInt(userTime) + 5;
     // console.log({len_min, len_max})
 
     listenApi("search", {
       q: genreString,
-      // len_min,
+      len_min,
       len_max,
       genre_ids: genre,
       // sort_by_date: 1,
@@ -175,7 +179,9 @@ class App extends Component {
       }, () => {
 				// dbRef.child('users').child(this.state.uid).push(this.state.podcasts[0]);
 			})
-    })
+		}).catch(error => {
+			alert(errorResponse(error));
+		});
 
 
     // listenApi("best_podcasts", { genre_id: this.state.genre }).then(
@@ -258,11 +264,6 @@ class App extends Component {
       {
         genre: event.target.value,
         genreString: event.target[event.target.selectedIndex].text,
-      },
-      () => {
-        //callback function to be run after state is set
-        // TODO get rid of this before production
-        // this.getPodcasts(); // get podcasts on genre select
       }
     );
   };
