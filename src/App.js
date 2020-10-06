@@ -33,7 +33,9 @@ class App extends Component {
 			userPlaylists: [],
 			currentPlaylist: '',
       playlistName: '',
+
       offset: 10,
+
     };
   }
 
