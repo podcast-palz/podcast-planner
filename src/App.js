@@ -158,10 +158,6 @@ class App extends Component {
 	/** retrieving podcasts with api call from passed params. storing results in state. */
   getPodcasts() {
 
-
-		const dbRef = firebase.database().ref();
-
-
 		this.setState({
 			isStarted: true,
 			isLoading: true,
