@@ -42,8 +42,8 @@ export default function Podcast(props) {
 	return (
 
     <div className="wrapper">
-			{ !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
-			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> :
+			{/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
+			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
       <>
 				<h2 className="podcastHeading">Your Podcast Selections!</h2>
 				<ul className="podcastList">
@@ -56,7 +56,6 @@ export default function Podcast(props) {
             })}
           </ul>
 			</>
-			}
     </div>
 
 	)
