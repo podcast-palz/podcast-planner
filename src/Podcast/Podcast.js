@@ -38,14 +38,20 @@ export default function Podcast(props) {
       </>
     )
   }
-  
-	return (
 
+  // podcasts.sort((a, b) => (sortType === 'asc') ? parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec) : parseFloat(b.audio_length_sec) - parseFloat (a.audio_length_sec));
+
+  // sorts through podcast audio length in ascending order
+  podcasts.sort((a, b) => parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec));
+
+	return (
     <div className="wrapper">
 			{/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
 			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
       <>
-				<h2 className="podcastHeading">Your Podcast Selections!</h2>
+				<h2 className="podcastHeading">Your Podcast Selections:</h2>
+        {/* <button onClick={() => this.onSort('asc')}>Sort by Ascending</button>
+        <button onClick={() => this.onSort('asc')}>Sort by Descending</button> */}
 				<ul className="podcastList">
             {podcasts.map((podcast) => {
               return (

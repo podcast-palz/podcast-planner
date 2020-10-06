@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Form from '../Form/Form';
-import "./index.css";
+import './index.css';
+// import logo from './logo1.png';
 
 import LoadingBar from '../LoadingBar/LoadingBar'
 
@@ -11,6 +12,7 @@ class Header extends Component {
         return (
             <header>
                 <nav className="navBar"></nav>
+                {/* <img src={logo} className="logo"/> */}
                 <div className="flexContainer wrapper">
                     <div className="containerOne">
                         <h1>Podcast Planner</h1>

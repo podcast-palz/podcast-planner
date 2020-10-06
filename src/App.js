@@ -32,7 +32,7 @@ class App extends Component {
 			uid: '',
 			userPlaylists: [],
 			currentPlaylist: '',
-			playlistName: '',
+      playlistName: '',
     };
   }
 
