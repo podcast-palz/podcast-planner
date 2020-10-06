@@ -2,7 +2,7 @@ import React from 'react'
 import './index.css'
 
 export default function Podcast(props) {
-	const { podcasts, add } = props;
+	const { podcasts, add, isStarted } = props;
 
   /**
    * Generates information for the podcast episode to display on the page. 
@@ -31,12 +31,17 @@ export default function Podcast(props) {
   
 	return (
     <div className="wrapper">
-      <h2 className="podcastHeading">Your Podcast Selections!</h2>
-      <ul className="podcastList">
-        {podcasts.map((podcast) => {
-          return getPodcastInfo(podcast);
-        })}
-      </ul>
+			{ !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
+			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> :
+      <>
+				<h2 className="podcastHeading">Your Podcast Selections!</h2>
+				<ul className="podcastList">
+					{podcasts.map((podcast) => {
+						return getPodcastInfo(podcast);
+					})}
+				</ul>
+			</>
+			}
     </div>
 	)
 }

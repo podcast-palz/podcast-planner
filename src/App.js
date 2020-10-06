@@ -24,13 +24,13 @@ class App extends Component {
       genreString: "",
       podcasts: [],
 			userTime: 20,
-			isLoading: true,
+			isStarted: false,
+			isLoading: false,
 			userPlaylist: [],
 			uid: '',
 			userPlaylists: [],
 			currentPlaylist: '',
 			playlistName: '',
-			apiError: '',
     };
   }
 
@@ -155,8 +155,10 @@ class App extends Component {
 
 	/** retrieving podcasts with api call from passed params. storing results in state. */
   getPodcasts() {
-		const dbRef = firebase.database().ref();
-
+		this.setState({
+			isStarted: true,
+			isLoading: true,
+		})
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
@@ -176,9 +178,7 @@ class App extends Component {
       this.setState({
         podcasts: response.data.results,
         isLoading: false,
-      }, () => {
-				// dbRef.child('users').child(this.state.uid).push(this.state.podcasts[0]);
-			})
+      })
 		}).catch(error => {
 			alert(errorResponse(error));
 		});
@@ -283,8 +283,12 @@ class App extends Component {
    * @param {event} event onClick
    */
   handleSubmit = (event) => {
-    event.preventDefault();
-    this.getPodcasts();
+		event.preventDefault();
+		if (this.state.genre) {
+			this.getPodcasts();
+		} else {
+			alert('Please select a genre');
+		}
   };
 
 	/**
@@ -379,7 +383,7 @@ class App extends Component {
 
 
   render() {
-		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName } = this.state;
+		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName, isStarted } = this.state;
 
 		// console.log(this.removePlaylistItem);
 
@@ -391,13 +395,14 @@ class App extends Component {
 					selectGenre={this.selectGenre}
 					genres={genres}
 					handleSubmit={this.handleSubmit}
+					loading={isLoading}
 				/>
 
         {isLoading ? (
           <p className="loading">Loading...</p>
         ) : (
           <div className="podcastContainer">
-            <Podcast podcasts={podcasts} add={this.addToPlaylist} />
+            <Podcast podcasts={podcasts} add={this.addToPlaylist} isStarted={isStarted} />
           </div>
         )}
 

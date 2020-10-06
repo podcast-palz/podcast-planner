@@ -6,7 +6,7 @@ const key = "d370e5f11d0a4b14956d88517e75fd8a"; // Nathan's key
 const endpoint = "https://listen-api.listennotes.com/api/v2/";
 
 const errorMessages = {
-	['400']: '400 - There is something wrong on your end, please refresh and try again',
+	['400']: '400 - There is something wrong on your end, please try again',
 	['401']: '401 - Wrong API key or problems with account',
 	['404']: '404 - No results found, please try again',
 	['429']: '429 - API quota exceeded - please try again later',

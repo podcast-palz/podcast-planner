@@ -2,8 +2,12 @@ import React, { Component } from 'react';
 import Form from '../Form/Form';
 import "./index.css";
 
+import LoadingBar from '../LoadingBar/LoadingBar'
+
 class Header extends Component {
     render() {
+			const { setUserTime, userTime, selectGenre, genres, handleSubmit, loading } = this.props;
+
         return (
             <header>
                 <nav className="navBar"></nav>
@@ -14,15 +18,19 @@ class Header extends Component {
                     </div>
                     <div className="containerTwo">
                         <Form 
-                            setUserTime={this.props.setUserTime}
-                            userTime={this.props.userTime}
-                            selectGenre={this.props.selectGenre}
-                            genres={this.props.genres}
-                            handleSubmit={this.props.handleSubmit}
+                            setUserTime={setUserTime}
+                            userTime={userTime}
+                            selectGenre={selectGenre}
+                            genres={genres}
+                            handleSubmit={handleSubmit}
                         />
                     </div>
                 </div>
+
+								<LoadingBar loading={loading} />
+
                 <div className="shape"></div>
+
             </header>
         )
     }
