@@ -33,6 +33,9 @@ class App extends Component {
 			userPlaylists: [],
 			currentPlaylist: '',
       playlistName: '',
+
+      offset: 10,
+
     };
   }
 
@@ -164,7 +167,7 @@ class App extends Component {
 		})
 
     // const genreString = this.state.genreString;
-    const { genre, genreString, userTime } = this.state;
+    const { genre, genreString, userTime, offset } = this.state;
 
     const len_min = 4;
     const len_max = parseInt(userTime) + 5;
@@ -172,10 +175,9 @@ class App extends Component {
 
     listenApi("search", {
       q: genreString,
-
       len_min,
-
       len_max,
+      offset: offset,
       genre_ids: genre,
       // sort_by_date: 1,
       language: "English",
@@ -389,7 +391,19 @@ class App extends Component {
   }
   
   // rerenders the page when the user clicks next page
-  nextPage = () => {
+  nextPage = (event) => {
+    console.log('clicked!')
+    // const offset = this.state.offset;
+    this.setState({
+      offset: this.state.offset + 10,
+    })
+    this.getPodcasts();
+  }
+
+  prevPage = (event) => {
+    this.setState({
+      offset: this.state.offset - 10,
+    })
     this.getPodcasts();
   }
 
@@ -429,7 +443,18 @@ class App extends Component {
                   render={(props) => <Podcast {...props}
                   podcasts={podcasts} add={this.addToPlaylist} /> }
                   /> 
-                  <button onClick={() => this.nextPage}>Next Page</button>
+                  <div class="wrapper">
+
+                    {this.state.podcasts.length != 0 ? 
+                    (<>
+                      {this.state.offset >= 20 ? 
+                        (<button className="pageButton" onClick={() => this.prevPage()}>Previous Page</button>) 
+                        : (null) }  
+                      <button className="pageButton" onClick={() => this.nextPage()}>Next Page</button>
+                    </>)
+                      : (null)}
+
+                  </div>
                 </div>
               )}
 
