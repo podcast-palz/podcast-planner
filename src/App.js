@@ -45,7 +45,8 @@ class App extends Component {
 		// this.getPodcasts();
 		
 
-	// firebase
+  // firebase
+
  	const dbRef = firebase.database().ref();
     // listen for changes to db and updateA
     dbRef.on('value', response => {
@@ -249,8 +250,8 @@ class App extends Component {
 
 
 	/**
-	 * set genre in state on change of select dropdown
-	 * @param {event} event on change of select
+	 * Set genre in state to reflect the user selected genre. 
+	 * @param {event} event onChange
 	 */
    selectGenre = (event) => {
     this.setState(
@@ -266,28 +267,40 @@ class App extends Component {
     );
   };
 
-  /** set user time in state on change of slider */
+  /**
+   * Set userTime in state to reflect the user's choice.
+   * @param {event} event onChange
+   */
   setUserTime = (event) => {
     this.setState({
       userTime: event.target.value,
     });
   };
 
-  /** get podcasts on form submit */
+  /**
+   * Get podcasts on user click of submit button. Calls function that has the API call.
+   * @param {event} event onClick
+   */
   handleSubmit = (event) => {
     event.preventDefault();
     this.getPodcasts();
   };
 
-	/** Remove podcast from playlist */
+	/**
+   * Removes playlist item from firebase on click in the slideout menu.
+   * @param {String} key onClick
+   */
 	removePlaylistItem = key => {
 		const dbRef = firebase.database().ref();
 		const { uid, currentPlaylist } = this.state;
 		dbRef.child('users').child(uid).child(currentPlaylist).child(key).remove();
 	}
 
-	
-	/** Remove playlist */
+
+	/**
+   * Removes entire playlist from firebase, based on the key. 
+   * @param {string} key 
+   */
 	removePlaylist = key => {
 		console.log('removePlaylist', key);
 		const dbRef = firebase.database().ref();
@@ -300,8 +313,10 @@ class App extends Component {
 			})
 	}
 
-
-	/** Add podcast to playlist */
+	/**
+   * Adds podcast to firebase playlist
+   * @param {object} podcast 
+   */
 	addToPlaylist = podcast => {
 		const dbRef = firebase.database().ref();
 		const { uid, userPlaylists, currentPlaylist, playlistName } = this.state;
@@ -378,9 +393,8 @@ class App extends Component {
 				/>
 
         {isLoading ? (
-          <p>Loading...</p>
+          <p className="loading">Loading...</p>
         ) : (
-
           <div className="podcastContainer">
             <Podcast podcasts={podcasts} add={this.addToPlaylist} />
           </div>

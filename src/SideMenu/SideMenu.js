@@ -6,7 +6,10 @@ import { faBars, faTimes, faPlus } from '@fortawesome/free-solid-svg-icons'
 
 import './index.css'
 
-
+/**
+ * Rendering the side menu
+ * @param {*} props 
+ */
 export default function SideMenu(props) {
 	const { playlists, remove, removeItem, createPlaylist, setActive, current, rename, updateName, title } = props;
 	

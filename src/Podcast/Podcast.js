@@ -4,8 +4,10 @@ import './index.css'
 export default function Podcast(props) {
 	const { podcasts, add } = props;
 
-	
-
+  /**
+   * Generates information for the podcast episode to display on the page. 
+   * @param {*} podcast 
+   */
   const getPodcastInfo = (podcast) => {
     const { audio_length_sec, id, title_original, description_original, thumbnail } = podcast;
     const podcastTitle = podcast.podcast.title_original;
@@ -26,10 +28,10 @@ export default function Podcast(props) {
       <button onClick={() => add(podcast)}>Add To Playlist</button>
     </li> )
   }
-
+  
 	return (
     <div className="wrapper">
-      <h2>Your Podcast Selections!</h2>
+      <h2 className="podcastHeading">Your Podcast Selections!</h2>
       <ul className="podcastList">
         {podcasts.map((podcast) => {
           return getPodcastInfo(podcast);
