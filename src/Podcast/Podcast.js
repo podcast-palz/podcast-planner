@@ -28,15 +28,25 @@ export default function Podcast(props) {
       <button onClick={() => add(podcast)}>Add To Playlist</button>
     </li> )
   }
-  
+
+  // podcasts.sort((a, b) => (sortType === 'asc') ? parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec) : parseFloat(b.audio_length_sec) - parseFloat (a.audio_length_sec));
+
+  // sorts through podcast audio length in ascending order
+  podcasts.sort((a, b) => parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec));
+
 	return (
-    <div className="wrapper">
-      <h2 className="podcastHeading">Your Podcast Selections!</h2>
-      <ul className="podcastList">
-        {podcasts.map((podcast) => {
-          return getPodcastInfo(podcast);
-        })}
-      </ul>
+    <div>
+      <h2 className="podcastHeading">Your Podcast Selections:</h2>
+      <div className="wrapper">
+        {/* <button onClick={() => this.onSort('asc')}>Sort by Ascending</button>
+        <button onClick={() => this.onSort('asc')}>Sort by Descending</button> */}
+
+        <ul className="podcastList">
+          {podcasts.map((podcast) => {
+            return getPodcastInfo(podcast);
+          })}
+        </ul>
+      </div>
     </div>
 	)
 }

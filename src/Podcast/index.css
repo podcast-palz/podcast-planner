@@ -1,11 +1,14 @@
 .podcastContainer {
   background: linear-gradient(180deg, #298776 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(180deg, #1D3548 0%, rgba(255, 255, 255, 0) 100%), #50C17F;
-  /* box-shadow: inset 0px 7px 3px -3px rgba(0, 0, 0, 0.25); */
 }
 
 .podcastHeading {
   text-align: center;
   padding: 20px 0;
+  background-color: #1D3548;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  color: white;
 }
 
 .podcastList {
@@ -15,8 +18,6 @@
   justify-content: center;
   padding: 50px 0;
 }
-
-
 
 .podcast {
   display: grid;
@@ -31,18 +32,19 @@
 
 .podcast p {
   margin: 0;
+  text-align: center;
 }
 
 .podcast button {
   margin: 0 auto;
   width: 75%;
-  background-color: #50C17F;
+  background-color: #1D3548;
   color: #fff;
 }
 
 .podcast button:hover,
 .podcast button:focus {
-  background-color: #298776;
+  background-color: #50C17F;
   color: #fff;
   transform: scale(1.1);
   border-radius: 11px;
@@ -52,6 +54,7 @@
 .podcast h2,
 .podcast h3 {
   margin: 0;
+  text-align: center; 
 }
 
 .podcast h2 {
