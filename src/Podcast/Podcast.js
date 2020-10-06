@@ -56,6 +56,7 @@ export default function Podcast(props) {
             })}
           </ul>
 			</>
+    {/* } */}
     </div>
 
 	)
