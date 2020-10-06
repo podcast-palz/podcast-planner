@@ -418,7 +418,8 @@ class App extends Component {
                   userTime={userTime}
                   selectGenre={this.selectGenre}
                   genres={genres}
-                  handleSubmit={this.handleSubmit} />} 
+									handleSubmit={this.handleSubmit}
+									loading={isLoading} />} 
               />
       
               {isLoading ? (
