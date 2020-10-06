@@ -1,5 +1,6 @@
 import React from 'react'
 import './index.css'
+import { Link } from 'react-router-dom'
 
 export default function Podcast(props) {
 	const { podcasts, add } = props;
@@ -18,25 +19,38 @@ export default function Podcast(props) {
 
     let shortDescription = description.split(' ').slice(0, 20).join(' ');
     shortDescription += '...';
-    
-    return (<li className="podcast">
-      <h2>{podcastTitle}</h2>
-      <img src={thumbnail} alt='' />
-      <h3>{title_original}</h3>
-      <p>{shortDescription}</p>
-      <p>Length: {duration} minutes</p>
-      <button onClick={() => add(podcast)}>Add To Playlist</button>
-    </li> )
+
+    return (
+      <>
+          <h2>{podcastTitle}</h2>
+        {/* <Link to={{ pathname: `/${this.props.testvalue}`, query: { backUrl } }} /> */}
+        
+
+        <Link 
+        to={ {pathname: `/podcast/${podcast.id}`, query: {podcast: podcast}} }>
+          <img src={thumbnail} alt='' />
+        </Link>
+          <h3>{title_original}</h3>
+          <p>Length: {duration} minutes</p>
+          <p>{shortDescription}</p>
+         
+          <button onClick={() => add(podcast)}>Add To Playlist</button>
+      </>
+    )
   }
   
 	return (
-    <div className="wrapper">
-      <h2 className="podcastHeading">Your Podcast Selections!</h2>
-      <ul className="podcastList">
-        {podcasts.map((podcast) => {
-          return getPodcastInfo(podcast);
-        })}
-      </ul>
-    </div>
+        <div className="wrapper">
+          <h2 className="podcastHeading">Your Podcast Selections!</h2>
+          <ul className="podcastList">
+            {podcasts.map((podcast) => {
+              return (
+                <li className="podcast" key={podcast.id}> 
+                  {getPodcastInfo(podcast)} 
+                </li> 
+              )
+            })}
+          </ul>
+        </div>
 	)
 }

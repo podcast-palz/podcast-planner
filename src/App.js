@@ -4,7 +4,7 @@ import "./App.css";
 import listenApi from "./listenApi";
 
 import firebase from './firebase'
-
+import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import Header from './Header/Header.js';
 import Podcast from './Podcast/Podcast';
 // import Playlist from './Playlist/Playlist';
@@ -14,6 +14,8 @@ import SideMenu from './SideMenu/SideMenu';
 
 import Footer from './Footer/Footer.js';
 import Playlist from "./Playlist/Playlist";
+
+import PodcastInfo from './PodcastInfo/PodcastInfo'
 
 class App extends Component {
   constructor() {
@@ -58,8 +60,8 @@ class App extends Component {
 			// if the database isn't empty
 			if (data) {
 				const user = data.users[this.state.uid];
-				console.log('data', data);
-	      console.log('user', user);
+	// 			console.log('data', data);
+	//       console.log('user', user);
 
 				// if the user exists
 				if (user) {
@@ -80,11 +82,11 @@ class App extends Component {
 						for (let podcast in user[playlist]) {
 							if (podcast !== 'playlist_title') {
 								newPlaylist.push({ key: podcast, data: user[playlist][podcast]})
-								console.log('playlist', playlist[podcast]);
+								// console.log('playlist', playlist[podcast]);
 							}
 						}
 						
-						console.log('newPlaylist', newPlaylist);
+						// console.log('newPlaylist', newPlaylist);
 
 						// playlistKey = playlist;
 						// console.log(key);
@@ -151,6 +153,7 @@ class App extends Component {
 
 	/** retrieving podcasts with api call from passed params. storing results in state. */
   getPodcasts() {
+
 		const dbRef = firebase.database().ref();
 
     // const genreString = this.state.genreString;
@@ -162,12 +165,13 @@ class App extends Component {
 
     listenApi("search", {
       q: genreString,
-      // len_min,
+      offset: 10,
       len_max,
       genre_ids: genre,
       // sort_by_date: 1,
       language: "English",
     }).then(response => {
+      console.log(response);
       console.log(response.data.results);
       this.setState({
         podcasts: response.data.results,
@@ -374,7 +378,12 @@ class App extends Component {
 		this.setState({
 			playlistName: newName,
 		}, this.renamePlaylist)
-	}
+  }
+  
+  // rerenders the page when the user clicks next page
+  nextPage = () => {
+    this.getPodcasts();
+  }
 
 
   render() {
@@ -382,39 +391,61 @@ class App extends Component {
 
 		// console.log(this.removePlaylistItem);
 
+    // const HeaderProps = {
+    //   setUserTime: this.setUserTime,
+    //   userTime: userTime,
+    //   selectGenre: this.selectGenre,
+    //   genres: genres,
+    //   handleSubmit: this.handleSubmit,
+    // }
+
     return (
-      <div className="App">
-        <Header 
-					setUserTime={this.setUserTime}
-					userTime={userTime}
-					selectGenre={this.selectGenre}
-					genres={genres}
-					handleSubmit={this.handleSubmit}
-				/>
+          <Router>
+            <div className="App">
+              
+              <Route exact path="/"
+                render={(props) => <Header {...props}
+                  setUserTime={this.setUserTime}
+                  userTime={userTime}
+                  selectGenre={this.selectGenre}
+                  genres={genres}
+                  handleSubmit={this.handleSubmit} />} 
+              />
+      
+              {isLoading ? (
+                <p className="loading">Loading...</p>
+              ) : (
+                <div className="podcastContainer">
+                  <Route exact path="/" 
+                  render={(props) => <Podcast {...props}
+                  podcasts={podcasts} add={this.addToPlaylist} /> }
+                  /> 
+                  <button onClick={() => this.nextPage}>Next Page</button>
+                </div>
+              )}
 
-        {isLoading ? (
-          <p className="loading">Loading...</p>
-        ) : (
-          <div className="podcastContainer">
-            <Podcast podcasts={podcasts} add={this.addToPlaylist} />
-          </div>
-        )}
-
-				<SideMenu
-					playlists={userPlaylists}
-					remove={this.removePlaylist}
-					removeItem={this.removePlaylistItem}
-					createPlaylist={this.createPlaylist}
-					setActive={this.setActivePlaylist}
-					current={currentPlaylist}
-					rename={this.renamePlaylist}
-					updateName={this.updatePlaylistName}
-					title={playlistName}
-				/>
-
-				<Footer />
-
-      </div>
+              <Route path="/podcast/:podcastID" component={PodcastInfo} />
+          
+              <Route exact path="/"
+                render={(props) => <SideMenu {...props}
+                  playlists={userPlaylists}
+                  remove={this.removePlaylist}
+                  removeItem={this.removePlaylistItem}
+                  createPlaylist={this.createPlaylist}
+                  setActive={this.setActivePlaylist}
+                  current={currentPlaylist}
+                  rename={this.renamePlaylist}
+                  updateName={this.updatePlaylistName}
+                  title={playlistName}
+                />}
+              />
+      
+              <Route path="/"
+                render={(props) => <Footer {...props} />}
+              />
+      
+            </div>
+          </Router>
     );
   }
 }
