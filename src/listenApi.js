@@ -5,15 +5,22 @@ import Axios from 'axios';
 const key = "d370e5f11d0a4b14956d88517e75fd8a"; // Nathan's key
 const endpoint = "https://listen-api.listennotes.com/api/v2/";
 
+const errorMessages = {
+	['400']: '400 - There is something wrong on your end, please try again',
+	['401']: '401 - Wrong API key or problems with account',
+	['404']: '404 - No results found, please try again',
+	['429']: '429 - API quota exceeded - please try again later',
+	['500']: '500 - Unexpected server errors - please try again later',
+}
 
-// api call. passing objects that get destructured and passed to the call.
+
 /**
  * Calls the API, requires a requestType and various object parameters.
- * @param {String} requestType 
- * @param {*} params 
+ * @param {string} requestType the string to append to the endpoint
+ * @param {object} params any additional parameters to send
+ * @returns {Promise} The Axios promise
  */
 export default function listenApi(requestType, params) {
-	// console.log('params', params);
 	return Axios({
 		url: endpoint + requestType,
 		params: {
@@ -25,3 +32,17 @@ export default function listenApi(requestType, params) {
 	})
 }
 
+/**
+ * Return the appropriate error message for given API code
+ * @param {object} error
+ * @returns {string} The message to display for the provided error code
+ */
+export function errorResponse(error) {
+	console.log(typeof error);
+	const { status } = error.response;
+	let message = 'Unknown error, please refresh and try again';
+	for (let error in errorMessages) {
+		if (status == error) message = errorMessages[error];
+	}
+	return message;
+}

@@ -37,7 +37,7 @@ export default function Form(props) {
 			
 			<button onClick={handleSubmit} type="submit" className="headerButton">
 				Submit
-          </button>
+      </button>
 		</form>
 	)
 }

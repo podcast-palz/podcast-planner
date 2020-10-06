@@ -22,7 +22,7 @@
 .podcast {
   display: grid;
   gap: 20px;
-  grid-template-rows: minmax(25px, 70px) auto minmax(20px, auto) minmax(20px, auto) 20px 50px;
+  /* grid-template-rows: minmax(25px, 70px) auto minmax(20px, auto) minmax(20px, auto) 20px 50px; */
   padding: 25px 20px;
   background-color: rgba(255, 255, 255, 0.872);
   color:#1D3548;

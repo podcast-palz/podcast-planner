@@ -1,25 +1,28 @@
-.footer {
-   height: 20rem; 
-	 width: 100%;
-	 
-	 position: absolute;
-	 bottom: 0;
-
-	/* background-color: black; */
-
+footer {
+	width: 100%;	 
+	position: absolute;
+   bottom: 0;
 }
 
-
-
-.container {
-   width: 70%;
-   flex-direction: row; 
+.footerBar { 
+   text-align: center;
+   background: linear-gradient(10deg, #298776 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(90deg, #1D3548 0%, rgba(255, 255, 255, 0) 100%), #50C17F;
+   height: 12vh;
 }
 
-.containerDiv p {
-   color:  black;
-   line-height: 25px;
-   font-size: 10px;
+.container p {
+   width: 100%;
+   color: #c4f0d6;
 }
 
+.containerDiv {
+   line-height: 40px;
+   font-size: 20px;
+}
+
+.junoMade { 
+   font-size: 12px;
+   margin-top: 2rem;
+   bottom: 0;
+}
 

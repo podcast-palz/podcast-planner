@@ -13,7 +13,9 @@
     "firebase": "^7.22.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "3.4.3",
+    "react-scroll-up-button": "^1.6.4"
   },
   "scripts": {
     "start": "react-scripts start",

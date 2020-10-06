@@ -1,8 +1,9 @@
 import React from 'react'
 import './index.css'
+import { Link } from 'react-router-dom'
 
 export default function Podcast(props) {
-	const { podcasts, add } = props;
+	const { podcasts, add, isStarted } = props;
 
   /**
    * Generates information for the podcast episode to display on the page. 
@@ -18,15 +19,24 @@ export default function Podcast(props) {
 
     let shortDescription = description.split(' ').slice(0, 20).join(' ');
     shortDescription += '...';
-    
-    return (<li className="podcast">
-      <h2>{podcastTitle}</h2>
-      <img src={thumbnail} alt='' />
-      <h3>{title_original}</h3>
-      <p>{shortDescription}</p>
-      <p>Length: {duration} minutes</p>
-      <button onClick={() => add(podcast)}>Add To Playlist</button>
-    </li> )
+
+    return (
+      <>
+          <h2>{podcastTitle}</h2>
+        {/* <Link to={{ pathname: `/${this.props.testvalue}`, query: { backUrl } }} /> */}
+        
+
+        <Link 
+        to={ {pathname: `/podcast/${podcast.id}`, query: {podcast: podcast}} }>
+          <img src={thumbnail} alt='' />
+        </Link>
+          <h3>{title_original}</h3>
+          <p>Length: {duration} minutes</p>
+          <p>{shortDescription}</p>
+         
+          <button onClick={() => add(podcast)}>Add To Playlist</button>
+      </>
+    )
   }
 
   // podcasts.sort((a, b) => (sortType === 'asc') ? parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec) : parseFloat(b.audio_length_sec) - parseFloat (a.audio_length_sec));
@@ -35,18 +45,25 @@ export default function Podcast(props) {
   podcasts.sort((a, b) => parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec));
 
 	return (
-    <div>
-      <h2 className="podcastHeading">Your Podcast Selections:</h2>
-      <div className="wrapper">
+    <div className="wrapper">
+			{/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
+			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
+      <>
+				<h2 className="podcastHeading">Your Podcast Selections:</h2>
         {/* <button onClick={() => this.onSort('asc')}>Sort by Ascending</button>
         <button onClick={() => this.onSort('asc')}>Sort by Descending</button> */}
-
-        <ul className="podcastList">
-          {podcasts.map((podcast) => {
-            return getPodcastInfo(podcast);
-          })}
-        </ul>
-      </div>
+				<ul className="podcastList">
+            {podcasts.map((podcast) => {
+              return (
+                <li className="podcast" key={podcast.id}> 
+                  {getPodcastInfo(podcast)} 
+                </li> 
+              )
+            })}
+          </ul>
+			</>
+    {/* } */}
     </div>
+
 	)
 }
