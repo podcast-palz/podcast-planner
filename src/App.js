@@ -13,6 +13,7 @@ import Podcast from './Podcast/Podcast';
 import SideMenu from './SideMenu/SideMenu';
 
 import Footer from './Footer/Footer.js';
+import Playlist from "./Playlist/Playlist";
 
 class App extends Component {
   constructor() {
@@ -26,6 +27,9 @@ class App extends Component {
 			isLoading: true,
 			userPlaylist: [],
 			uid: '',
+			userPlaylists: [],
+			currentPlaylist: '',
+			playlistName: '',
     };
   }
 
@@ -48,18 +52,65 @@ class App extends Component {
     dbRef.on('value', response => {
       const newState = [];
       const data = response.val();
-			const user = data.users[this.state.uid];
-			console.log(data);
-      console.log(user);
+			
+			let playlistKey = '';
 
-      for (let key in user) {
-				console.log(key);
-        newState.push({key: key, data: user[key]});
-      }
-      // console.log(newState);
-      this.setState({
-        userPlaylist: newState
-      })
+			// if the database isn't empty
+			if (data) {
+				const user = data.users[this.state.uid];
+				console.log('data', data);
+	      console.log('user', user);
+
+				// if the user exists
+				if (user) {
+					// loop through playlists
+					for (let playlist in user) {
+						
+						// if no playlist selected, set as this playlist
+						if (!this.state.currentPlaylist) {
+							this.setState({
+								currentPlaylist: playlist,
+							})
+						}
+						
+
+						const newPlaylist = [];
+
+						// loop through podcasts inside playlist
+						for (let podcast in user[playlist]) {
+							if (podcast !== 'playlist_title') {
+								newPlaylist.push({ key: podcast, data: user[playlist][podcast]})
+								console.log('playlist', playlist[podcast]);
+							}
+						}
+						
+						console.log('newPlaylist', newPlaylist);
+
+						// playlistKey = playlist;
+						// console.log(key);
+						newState.push({ key: playlist, playlist_title: user[playlist].playlist_title, data: newPlaylist });
+					}
+					// console.log(newState);
+
+					console.log('playlistKey', playlistKey);
+					console.log('newState', newState);
+					this.setState({
+						userPlaylists: newState,
+					})
+
+				} else {
+					// if the user doesn't exist
+					this.setState({
+						userPlaylists: [],
+					})
+				}
+			} else {
+				this.setState({
+					userPlaylists: [],
+				})
+			}
+
+	      
 		})
 
 
@@ -105,14 +156,13 @@ class App extends Component {
     // const genreString = this.state.genreString;
     const { genre, genreString, userTime } = this.state;
 
-		/** @type {number} minimum length of time to search */
-    const len_min = 'string';
+    // const len_min = parseInt(userTime) - 5;
     const len_max = parseInt(userTime) + 5;
-    console.log({len_min, len_max})
+    // console.log({len_min, len_max})
 
     listenApi("search", {
       q: genreString,
-      len_min,
+      // len_min,
       len_max,
       genre_ids: genre,
       // sort_by_date: 1,
@@ -242,16 +292,25 @@ class App extends Component {
    */
 	removePlaylistItem = key => {
 		const dbRef = firebase.database().ref();
-		dbRef.child('users').child(this.state.uid).child(key).remove();
+		const { uid, currentPlaylist } = this.state;
+		dbRef.child('users').child(uid).child(currentPlaylist).child(key).remove();
 	}
+
 
 	/**
    * Removes entire playlist from firebase, based on the key. 
    * @param {string} key 
    */
 	removePlaylist = key => {
+		console.log('removePlaylist', key);
 		const dbRef = firebase.database().ref();
-		dbRef.child('users').child(this.state.uid).remove();
+		const { uid, userPlaylists } = this.state;
+		dbRef.child('users').child(uid).child(key).remove();
+
+		// Reset active playlist
+			this.setState({
+				currentPlaylist: '',
+			})
 	}
 
 	/**
@@ -259,16 +318,67 @@ class App extends Component {
    * @param {object} podcast 
    */
 	addToPlaylist = podcast => {
-		console.log('add', podcast);
 		const dbRef = firebase.database().ref();
+		const { uid, userPlaylists, currentPlaylist, playlistName } = this.state;
 
-		dbRef.child('users').child(this.state.uid).push(podcast);
+		// if playlist doesn't have content
+		if (!userPlaylists.length) {
+			this.createPlaylist(podcast);
+		} else { // if playlist has content
+			dbRef.child('users').child(uid).child(currentPlaylist).push(podcast);
+		}
+	}
 
+
+	/** Create a new playlist */
+	createPlaylist = podcast => {
+		const dbRef = firebase.database().ref();
+		const { uid, currentPlaylist, playlistName } = this.state;
+		const newKey = dbRef.child('users').child(uid).push().key;
+		// console.log('newKey', newKey);
+
+
+		this.setState({
+			currentPlaylist: newKey,
+		}, () => {
+			console.log({uid, currentPlaylist, podcast});
+			dbRef.child('users').child(uid).child(newKey).set({playlist_title: "Untitled Playlist"});
+			dbRef.child('users').child(uid).child(newKey).push(podcast);
+		})
+	}
+
+	/** set the currently active playlist */
+	setActivePlaylist = key => {
+		console.log('active: ', key);
+		this.setState({
+			currentPlaylist: key,
+		})
+	}
+
+
+	/** 
+	 * Rename playlist in database
+	 * @param {string} key The key of the podcast to rename
+	 */
+	renamePlaylist = key => {
+		const dbRef = firebase.database().ref();
+		const { uid, currentPlaylist, playlistName } = this.state;
+		console.log('rename', key, playlistName);
+
+		dbRef.child('users').child(uid).child(currentPlaylist).child('playlist_title').set(playlistName);
+	}
+
+	/** Uupdate playlist name in state on user input */
+	updatePlaylistName = event => {
+		const newName = event.target.value;
+		this.setState({
+			playlistName: newName,
+		}, this.renamePlaylist)
 	}
 
 
   render() {
-		const { isLoading, podcasts, userPlaylist, userTime, genres } = this.state;
+		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName } = this.state;
 
 		// console.log(this.removePlaylistItem);
 
@@ -291,9 +401,15 @@ class App extends Component {
         )}
 
 				<SideMenu
-					playlist={userPlaylist}
+					playlists={userPlaylists}
 					remove={this.removePlaylist}
 					removeItem={this.removePlaylistItem}
+					createPlaylist={this.createPlaylist}
+					setActive={this.setActivePlaylist}
+					current={currentPlaylist}
+					rename={this.renamePlaylist}
+					updateName={this.updatePlaylistName}
+					title={playlistName}
 				/>
 
 				<Footer />

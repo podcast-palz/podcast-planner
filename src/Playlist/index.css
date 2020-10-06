@@ -1,6 +1,7 @@
 /* Playlist */
 .Playlist {
 	padding: 2rem 1rem;
+	margin-bottom: 1rem;
 
 	border: 1px solid white;
 	border-radius: 2rem;
@@ -9,8 +10,25 @@
 }
 
 .Playlist h3 {
-	font-size: 2.4rem;
+	font-size: 2rem;
 	padding-bottom: 1rem;
+}
+
+.Playlist input[type="text"] {
+	background-color: #1D3548;
+	color: white;
+	border: none;
+	border-radius: 0.5rem;
+
+	font-family: 'Poiret One', cursive;
+	text-transform: initial;
+
+	width: 80%;
+	padding: 0.5rem;
+}
+
+.Playlist input[type="text"]:focus {
+	border: 2px solid white;
 }
 
 .Playlist li {
@@ -63,4 +81,10 @@
 .Playlist-delete:hover,
 .Playlist-delete:focus {
 	background-color: #e44343;
+}
+
+
+.Playlist.selected,
+.Playlist.selected input[type="text"] {
+	background-color: #365975;
 }
