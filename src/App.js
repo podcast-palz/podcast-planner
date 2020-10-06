@@ -238,7 +238,7 @@ class App extends Component {
 
 	/**
    * Removes playlist item from firebase on click in the slideout menu.
-   * @param {*} key onClick
+   * @param {String} key onClick
    */
 	removePlaylistItem = key => {
 		const dbRef = firebase.database().ref();
@@ -247,7 +247,7 @@ class App extends Component {
 
 	/**
    * Removes entire playlist from firebase, based on the key. 
-   * @param {*} key 
+   * @param {string} key 
    */
 	removePlaylist = key => {
 		const dbRef = firebase.database().ref();
@@ -256,7 +256,7 @@ class App extends Component {
 
 	/**
    * Adds podcast to firebase playlist
-   * @param {*} podcast 
+   * @param {object} podcast 
    */
 	addToPlaylist = podcast => {
 		console.log('add', podcast);
