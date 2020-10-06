@@ -360,10 +360,11 @@ class App extends Component {
 	}
 
 	/** set the currently active playlist */
-	setActivePlaylist = key => {
+	setActivePlaylist = (key, currentTitle) => {
 		console.log('active: ', key);
 		this.setState({
 			currentPlaylist: key,
+			playlistName: currentTitle,
 		})
 	}
 
@@ -375,7 +376,7 @@ class App extends Component {
 	renamePlaylist = key => {
 		const dbRef = firebase.database().ref();
 		const { uid, currentPlaylist, playlistName } = this.state;
-		console.log('rename', key, playlistName);
+		// console.log('rename', key, playlistName);
 
 		dbRef.child('users').child(uid).child(currentPlaylist).child('playlist_title').set(playlistName);
 	}
