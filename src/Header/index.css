@@ -11,8 +11,21 @@ header {
 
 .navBar {
     background: linear-gradient(10deg, #298776 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(90deg, #1D3548 0%, rgba(255, 255, 255, 0) 100%), #50C17F;
-    height: 3vh;
+    height: 8vh;
+    position: sticky;
+    top: 0px;
+    
 }
+.navBar p { 
+    color: #c4f0d6;
+    padding: 30px 0 10px 320px;
+}
+
+/* .navLogo {
+    background-image: url("./logo1.png");
+    background-repeat: no-repeat;
+} */
+
 
 h1 {
     font-size: 60px;
