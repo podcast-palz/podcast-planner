@@ -17,6 +17,8 @@
     "react-scripts": "3.4.3",
     "react-scroll-up-button": "^1.6.4",
     "sweetalert": "^2.1.2"
+    "react-sticky": "^6.0.3"
+
   },
   "scripts": {
     "start": "react-scripts start",

@@ -8,11 +8,7 @@ footer {
    text-align: center;
    background: linear-gradient(10deg, #298776 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(90deg, #1D3548 0%, rgba(255, 255, 255, 0) 100%), #50C17F;
    height: 12vh;
-}
-
-.container p {
-   width: 100%;
-   color: #c4f0d6;
+   padding-top: 20px;
 }
 
 .containerDiv {
@@ -20,9 +16,14 @@ footer {
    font-size: 20px;
 }
 
+.container p {
+   width: 100%;
+   color: #c4f0d6;
+}
+
+
 .junoMade { 
    font-size: 12px;
-   margin-top: 2rem;
-   bottom: 0;
+   margin-top: 4rem;
 }
 

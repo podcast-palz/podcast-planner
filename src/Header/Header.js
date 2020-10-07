@@ -11,7 +11,11 @@ class Header extends Component {
 
         return (
             <header>
-                <nav className="navBar"></nav>
+
+                <nav className="navBar">
+                    <p>Podcast Planner</p>
+                </nav>
+
                 <div className="flexContainer wrapper">
                     <div className="containerOne">
                         <img src={logo} className="logo"/>
