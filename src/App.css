@@ -4,7 +4,6 @@
   margin: 0 auto;
 }
 
-
 button {
   margin: 0 auto;
   width: 75%;
@@ -38,4 +37,12 @@ button:focus {
   font-size: 25px;
   letter-spacing: 5px;
   margin-top: 20px;
+}
+
+.pageButton {
+  padding: 10px 20px;
+}
+
+.page {
+  text-align: center; 
 }
