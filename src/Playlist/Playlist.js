@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -6,19 +6,35 @@ import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 import './index.css'
 
 
-export default function Playlist(props) {
-	const { playlist, title, removeItem, remove, setActive, current, rename, updateName, userTime } = props;
-  const { key, playlist_title } = playlist;
-  const totalTime = [];
-
-
-	/** 
-	* unfocus this element on enter
-	*/
-	function unfocus(e) {
-		if (e.key === 'Enter') {
-			document.getElementById(key).blur();
+export default class Playlist extends Component {
+	constructor() {
+		super();
+		this.state = {
+			currentTitle: '',
 		}
+	}
+
+	componentDidMount() {
+		this.setState({
+			currentTitle: this.props.playlist.playlist_title,
+		})
+	}
+	
+
+	render() {
+		const { playlist, title, removeItem, remove, setActive, current, rename, updateName, userTime } = this.props;
+		const { key, playlist_title } = playlist;
+    const totalTime = [];
+
+		/** 
+		* unfocus this element on enter
+		*/
+		const unfocus = (e) => {
+			if (e.key === 'Enter') {
+				document.getElementById(playlist.key).blur();
+			}
+		}
+
   }
   
   // Display time information for user
@@ -30,19 +46,19 @@ export default function Playlist(props) {
     )
   }
 
-
 	return (
-		<li key={key} className={`Playlist ${key === current ? 'selected' : ''}`} onClick={() => setActive(key)}>
+		<li key={key} className={`Playlist ${key === current ? 'selected' : ''}`} onClick={() => setActive(key, this.state.currentTitle)}>
 	
 			<h3>
 				<label className="sr-only" htmlFor={key}>{playlist_title}</label>
 				<input 
 					onChange={updateName}
-					onBlur={() => rename(key)}
+					// onBlur={() => rename(key)}
 					onKeyDown={unfocus}
 					type="text"
 					id={key}
 					value={playlist_title}
+          placeholder="Untitled Playlist"
 				/>
 			</h3>
 
