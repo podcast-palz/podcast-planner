@@ -3,7 +3,7 @@ import './index.css'
 import { Link } from 'react-router-dom'
 
 export default function Podcast(props) {
-	const { podcasts, add, isStarted } = props;
+	const { podcasts, add, isStarted, sort } = props;
 
   /**
    * Generates information for the podcast episode to display on the page. 
@@ -38,25 +38,35 @@ export default function Podcast(props) {
       </>
     )
   }
-  
-	return (
 
-    <div className="wrapper">
-			{/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
-			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
-      <>
-				<h2 className="podcastHeading">Your Podcast Selections!</h2>
-				<ul className="podcastList">
-            {podcasts.map((podcast) => {
-              return (
-                <li className="podcast" key={podcast.id}> 
-                  {getPodcastInfo(podcast)} 
-                </li> 
-              )
-            })}
-          </ul>
-			</>
-    {/* } */}
+	return (
+    <div>
+      <h2 className="podcastHeading">Your Podcast Selections:</h2>
+      <div className="wrapper">
+        {/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
+        !podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
+        <div className="sortContainer">
+          <div className="childContainer">
+            <p className="sortTitle">Sort by Podcast Length:</p>
+          </div>
+          <div className="childTwoContainer">
+            <button className="sorting" onClick={() => sort('asc')}>Ascending ⬆</button>
+            <button className="sorting" onClick={() => sort('desc')}>Descending ⬇</button>
+          </div>
+        </div>
+        <>
+          <ul className="podcastList">
+              {podcasts.map((podcast) => {
+                return (
+                  <li className="podcast" key={podcast.id}> 
+                    {getPodcastInfo(podcast)} 
+                  </li> 
+                )
+              })}
+            </ul>
+        </>
+      {/* } */}
+      </div>
     </div>
 
 	)

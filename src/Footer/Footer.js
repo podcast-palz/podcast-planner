@@ -22,7 +22,7 @@ class Footer extends Component {
                   </div>
                   <div className="containerDiv">
                      <p> Podcast Planner!  Start Lisening Today </p>
-                     <p className="junoMade">Podcast Palz Made at Juno </p>
+                     <p className="junoMade">Podcast Planner Made by Nathan Kanigsberg, Paige Freeman-Cyopeck, Reda Waseem, & Alex Gould at Juno College 2020 </p>
                   </div>
                </div>
                </div>

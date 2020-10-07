@@ -4,8 +4,8 @@
 label[for="hamburger"] {
 	z-index: 100;
 	position: fixed;
-	right: 2rem;
-	top: 2rem;
+	right: 4rem;
+	top: 1rem;
 }
 
 #hamburger {
@@ -13,15 +13,43 @@ label[for="hamburger"] {
 }
 
 label[for="hamburger"] {
+	color: #1D3548;
+
 	cursor: pointer;
+
+	background-color: #fff;
+	border-radius: 50%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	width: 4.0rem;
+	height: 4.0rem;
+
+	transition: 0.25s color, 0.25s background;
+
 }
 
 #hamburger:checked + label {
 	color: white;
+	background: none;
 }
 
 #hamburger:checked ~ .SideMenu {
 	right: 0;
+}
+
+label[for="hamburger"]:hover,
+#hamburger:focus + label {
+	background-color: #1D3548;
+	color: white;
+}
+
+#hamburger:checked + label:hover,
+#hamburger:focus:checked + label {
+	background-color: #fff;
+	color: #1D3548;
 }
 
 .SideMenu {
