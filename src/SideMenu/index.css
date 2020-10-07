@@ -4,8 +4,8 @@
 label[for="hamburger"] {
 	z-index: 100;
 	position: fixed;
-	right: 2rem;
-	top: 2rem;
+	right: 4rem;
+	top: 1rem;
 }
 
 #hamburger {
@@ -24,8 +24,8 @@ label[for="hamburger"] {
 	justify-content: center;
 	align-items: center;
 
-	width: 3.5rem;
-	height: 3.5rem;
+	width: 4.0rem;
+	height: 4.0rem;
 
 	transition: 0.25s color, 0.25s background;
 
