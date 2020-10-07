@@ -8,8 +8,14 @@
 	border: 2px solid white;
 	border-radius: 2rem;
 
-	position: relative;
-	
+	position: relative;	
+	z-index: 50;
+}
+
+.Playlist,
+.Playlist button,
+.Playlist input {
+	transition: 0.25s border, 0.25s background-color;
 }
 
 .Playlist:hover {
@@ -29,7 +35,7 @@
 	
 	background-color: #1D3548;
 	color: white;
-	border: none;
+	border: 2px solid #1D3548;
 	border-radius: 0.5rem;
 
 	font-family: 'Poiret One', cursive;
@@ -39,8 +45,8 @@
 	padding: 0.5rem;
 }
 
-.Playlist input[type="text"]:focus {
-	border: 2px solid white;
+.Playlist input[type="text"]:hover {
+	border: 2px solid #FFFFFF88;
 }
 
 .Playlist li {
@@ -74,6 +80,7 @@
 	flex-shrink: 0;
 }
 
+
 .Playlist-delete {
 	background: none;
 	color: white;
@@ -90,6 +97,7 @@
 
 .Playlist button.remove:hover,
 .Playlist button.remove:focus,
+.Playlist.selected button.remove:hover,
 .Playlist-delete:hover,
 .Playlist-delete:focus {
 	background-color: #e44343;
@@ -97,8 +105,17 @@
 
 
 .Playlist.selected,
-.Playlist.selected input[type="text"] {
+.Playlist.selected input[type="text"],
+.Playlist.selected button.remove {
 	background-color: #298776;
+}
+
+.Playlist.selected input[type="text"] {
+	border: 2px solid #298776;
+}
+
+.Playlist.selected input[type="text"]:hover {
+border: 2px solid #FFFFFF88;
 }
 
 /* .Playlist.selected:hover,
@@ -115,3 +132,25 @@ li.showTime {
 .Playlist .alert {
 	color: rgb(216, 53, 53);
 }
+
+.Playlist input[type="text"]:focus,
+.Playlist.selected input[type="text"]:focus {
+	border: 2px solid white;
+}
+
+.Playlist .selectPlaylist {
+	z-index: 60;
+
+	/* position: absolute; */
+	top: 0;
+	left: 0;
+	/* width: 100%; */
+	/* height: 100%; */
+
+	margin: 0;
+}
+
+/* .Playlist .selectPlaylist:hover,
+.Playlist .selectPlaylist:focus {
+	background: none;
+} */

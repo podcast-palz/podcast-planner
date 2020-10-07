@@ -65,7 +65,9 @@ select {
 }
 
 
-
+html {
+  scroll-behavior: smooth;
+}
 
 h1, h2, h3, h4 {
     font-family: 'Poiret One', cursive;
@@ -74,3 +76,4 @@ h1, h2, h3, h4 {
 body {
     font-family: 'Hind Siliguri', sans-serif;
 }
+

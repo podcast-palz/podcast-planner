@@ -29,7 +29,31 @@ label[for="hamburger"] {
 
 	transition: 0.25s color, 0.25s background;
 
+	/* position: relative; */
 }
+
+
+:not(:checked) + label[for="hamburger"]::before {
+	content: 'Your Playlists';
+	position: fixed;
+	right: 9.2rem;
+	top: 2.6rem;
+	color: white;
+
+	background-color: #1D3548;
+	padding: 0.5rem 1rem;
+	border-radius: 1rem;
+
+	opacity: 0;
+	transition: 0.25s opacity;
+}
+
+:not(:checked) + label[for="hamburger"]:hover::before {
+	opacity: 100%
+}
+
+
+
 
 #hamburger:checked + label {
 	color: white;

@@ -28,7 +28,7 @@ button:focus {
 .App {
 	position: relative;
 	min-height: 100vh;
-	padding-bottom: 12rem;
+	padding-bottom: 5rem;
 }
 
 .loading {
@@ -41,6 +41,7 @@ button:focus {
 
 .pageButton {
   padding: 10px 20px;
+  margin-bottom: 25px;
 }
 
 .page {
