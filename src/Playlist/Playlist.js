@@ -7,8 +7,9 @@ import './index.css'
 
 
 export default function Playlist(props) {
-	const { playlist, title, removeItem, remove, setActive, current, rename, updateName } = props;
-	const { key, playlist_title } = playlist;
+	const { playlist, title, removeItem, remove, setActive, current, rename, updateName, userTime } = props;
+  const { key, playlist_title } = playlist;
+  const totalTime = [];
 
 
 	/** 
@@ -18,7 +19,16 @@ export default function Playlist(props) {
 		if (e.key === 'Enter') {
 			document.getElementById(key).blur();
 		}
-	}
+  }
+  
+  // Display time information for user
+  function showTime() {
+    return (
+      <li>
+        {Math.round(totalTime.reduce((a, b) => a + b))} / {userTime} Minutes
+      </li>
+    )
+  }
 
 
 	return (
@@ -44,7 +54,11 @@ export default function Playlist(props) {
 				{playlist.data.map((podcast) => {
 					// if podcast has data, and isn't the title
 					if (podcast.data && podcast.key !== 'playlist_title') {
-						const { title_original, listennotes_url } = podcast.data;
+            const { title_original, listennotes_url, audio_length_sec } = podcast.data;
+            const minutes = parseInt(audio_length_sec) / 60;
+            totalTime.push(minutes)
+            console.log(totalTime);
+            // {totalTime.push()}
 						return (
 							<li key={podcast.key}>
 								<a href={listennotes_url} rel="noreferrer">{title_original}</a>
@@ -55,6 +69,7 @@ export default function Playlist(props) {
 						);
 						}
 				})}
+        {totalTime.length != 0 ? (showTime()) : null}
 			</ul>
 
 		</li>

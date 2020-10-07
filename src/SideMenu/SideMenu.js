@@ -11,7 +11,7 @@ import './index.css'
  * @param {*} props 
  */
 export default function SideMenu(props) {
-	const { playlists, remove, removeItem, createPlaylist, setActive, current, rename, updateName, title } = props;
+	const { playlists, remove, removeItem, createPlaylist, setActive, current, rename, updateName, title, userTime } = props;
 	
 	return (
 		<>
@@ -35,7 +35,8 @@ export default function SideMenu(props) {
 							current={current}
 							rename={rename}
 							updateName={updateName}
-							title={title}
+              title={title}
+              userTime={userTime}
 						/>
 					})}
 

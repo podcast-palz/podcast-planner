@@ -470,6 +470,7 @@ class App extends Component {
                   current={currentPlaylist}
                   rename={this.renamePlaylist}
                   updateName={this.updatePlaylistName}
+                  userTime={this.state.userTime}
                   title={playlistName}
                 />}
               />
