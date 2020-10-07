@@ -16,13 +16,13 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
   justify-content: center;
-  padding: 50px 0;
+  padding: 30px 0;
 }
 
 .podcast {
   display: grid;
   gap: 20px;
-  /* grid-template-rows: minmax(25px, 70px) auto minmax(20px, auto) minmax(20px, auto) 20px 50px; */
+  grid-template-rows: minmax(25px, 70px) auto minmax(20px, auto) minmax(20px, auto) auto 50px;
   padding: 25px 20px;
   background-color: rgba(255, 255, 255, 0.872);
   color:#1D3548;
@@ -67,4 +67,24 @@
 .podcast img {
   width: 100%;
   height: 100%;
+}
+
+.sorting {
+  padding: 10px 10px;
+}
+
+.sortContainer {
+  display: flex; 
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.sortTitle {
+  color: white; 
+  letter-spacing: 2px;
+}
+
+.childContainer {
+  display: flex;
+  align-items: center; 
 }

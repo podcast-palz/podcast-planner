@@ -16,6 +16,7 @@ import Footer from './Footer/Footer.js';
 import Playlist from "./Playlist/Playlist";
 
 import PodcastInfo from './PodcastInfo/PodcastInfo'
+import swal from 'sweetalert';
 
 class App extends Component {
   constructor() {
@@ -296,7 +297,7 @@ class App extends Component {
 		if (this.state.genre) {
 			this.getPodcasts();
 		} else {
-			alert('Please select a genre');
+		  swal('Please select a genre!');
 		}
   };
 
@@ -382,7 +383,7 @@ class App extends Component {
 		dbRef.child('users').child(uid).child(currentPlaylist).child('playlist_title').set(playlistName);
 	}
 
-	/** Uupdate playlist name in state on user input */
+	/** Update playlist name in state on user input */
 	updatePlaylistName = event => {
 		const newName = event.target.value;
 		this.setState({
@@ -406,6 +407,16 @@ class App extends Component {
     })
     this.getPodcasts();
   }
+
+  /** sort through podcast length through onClick asc + desc buttons */
+  sortPodcasts = (sortType) => {
+    const sortedPodcasts = [...this.state.podcasts]
+    sortedPodcasts.sort((a, b) => (sortType === 'asc') ? parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec) : parseFloat(b.audio_length_sec) - parseFloat (a.audio_length_sec));
+    this.setState({
+      podcasts:sortedPodcasts,
+    })
+  }
+
 
 
   render() {
@@ -441,16 +452,16 @@ class App extends Component {
                 <div className="podcastContainer">
                   <Route exact path="/" 
                   render={(props) => <Podcast {...props}
-                  podcasts={podcasts} add={this.addToPlaylist} /> }
+                  podcasts={podcasts} add={this.addToPlaylist} sort={this.sortPodcasts} /> }
                   /> 
-                  <div class="wrapper">
+                  <div class="page wrapper">
 
                     {this.state.podcasts.length != 0 ? 
                     (<>
                       {this.state.offset >= 20 ? 
-                        (<button className="pageButton" onClick={() => this.prevPage()}>Previous Page</button>) 
+                        (<button className="pageButton" onClick={() => this.prevPage()}>⬅ Previous Page</button>) 
                         : (null) }  
-                      <button className="pageButton" onClick={() => this.nextPage()}>Next Page</button>
+                      <button className="pageButton" onClick={() => this.nextPage()}>Next Page ➡</button>
                     </>)
                       : (null)}
 

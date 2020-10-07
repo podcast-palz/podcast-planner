@@ -3,7 +3,7 @@ import './index.css'
 import { Link } from 'react-router-dom'
 
 export default function Podcast(props) {
-	const { podcasts, add, isStarted } = props;
+	const { podcasts, add, isStarted, sort } = props;
 
   /**
    * Generates information for the podcast episode to display on the page. 
@@ -39,30 +39,34 @@ export default function Podcast(props) {
     )
   }
 
-  // podcasts.sort((a, b) => (sortType === 'asc') ? parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec) : parseFloat(b.audio_length_sec) - parseFloat (a.audio_length_sec));
-
-  // sorts through podcast audio length in ascending order
-  podcasts.sort((a, b) => parseFloat(a.audio_length_sec) - parseFloat (b.audio_length_sec));
-
 	return (
-    <div className="wrapper">
-			{/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
-			!podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
-      <>
-				<h2 className="podcastHeading">Your Podcast Selections:</h2>
-        {/* <button onClick={() => this.onSort('asc')}>Sort by Ascending</button>
-        <button onClick={() => this.onSort('asc')}>Sort by Descending</button> */}
-				<ul className="podcastList">
-            {podcasts.map((podcast) => {
-              return (
-                <li className="podcast" key={podcast.id}> 
-                  {getPodcastInfo(podcast)} 
-                </li> 
-              )
-            })}
-          </ul>
-			</>
-    {/* } */}
+    <div>
+      <h2 className="podcastHeading">Your Podcast Selections:</h2>
+      <div className="wrapper">
+        {/* { !isStarted ? <h2 className="podcastHeading">Set your time and pick a genre to get started!</h2> :
+        !podcasts.length ? <h2 className="podcastHeading">No podcasts found! Try searching for something else</h2> : */}
+        <div className="sortContainer">
+          <div className="childContainer">
+            <p className="sortTitle">Sort by Podcast Length:</p>
+          </div>
+          <div className="childTwoContainer">
+            <button className="sorting" onClick={() => sort('asc')}>Ascending ⬆</button>
+            <button className="sorting" onClick={() => sort('desc')}>Descending ⬇</button>
+          </div>
+        </div>
+        <>
+          <ul className="podcastList">
+              {podcasts.map((podcast) => {
+                return (
+                  <li className="podcast" key={podcast.id}> 
+                    {getPodcastInfo(podcast)} 
+                  </li> 
+                )
+              })}
+            </ul>
+        </>
+      {/* } */}
+      </div>
     </div>
 
 	)
