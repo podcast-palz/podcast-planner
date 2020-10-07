@@ -57,7 +57,6 @@ export default function Playlist(props) {
             const { title_original, listennotes_url, audio_length_sec } = podcast.data;
             const minutes = parseInt(audio_length_sec) / 60;
             totalTime.push(minutes)
-            console.log(totalTime);
             // {totalTime.push()}
 						return (
 							<li key={podcast.key}>
