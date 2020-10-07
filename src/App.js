@@ -380,18 +380,22 @@ class App extends Component {
   
   // rerenders the page when the user clicks next page
   nextPage = (event) => {
-    // const offset = this.state.offset;
-    this.setState({
-      offset: this.state.offset + 10,
-    })
-    this.getPodcasts();
+    // // const offset = this.state.offset;
+    // this.setState({
+    //   offset: this.state.offset + 10,
+    // })
+    // this.getPodcasts();
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
   prevPage = (event) => {
-    this.setState({
-      offset: this.state.offset - 10,
-    })
-    this.getPodcasts();
+    // this.setState({
+    //   offset: this.state.offset - 10,
+    // })
+    // this.getPodcasts();
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
   /** sort through podcast length through onClick asc + desc buttons */
@@ -432,7 +436,8 @@ class App extends Component {
 									loading={isLoading} />} 
               />
       
-              {isLoading ? (
+              {!isStarted ? <p className="loading">Select Genre to Continue</p> :
+              isLoading ? (
                 <p className="loading">Loading...</p>
               ) : (
                 <div className="podcastContainer">
