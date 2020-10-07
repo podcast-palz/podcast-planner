@@ -44,7 +44,6 @@ class App extends Component {
   componentDidMount() {
 		// retrieving the genres, storing them in state.
     listenApi("genres", { top_level_only: 1 }).then((response) => {
-			console.log(response.status);
 			this.setState({
         genres: response.data.genres,
       });
@@ -68,8 +67,8 @@ class App extends Component {
 			// if the database isn't empty
 			if (data) {
 				const user = data.users[this.state.uid];
-	// 			console.log('data', data);
-	//       console.log('user', user);
+
+
 
 				// if the user exists
 				if (user) {
@@ -90,20 +89,17 @@ class App extends Component {
 						for (let podcast in user[playlist]) {
 							if (podcast !== 'playlist_title') {
 								newPlaylist.push({ key: podcast, data: user[playlist][podcast]})
-								// console.log('playlist', playlist[podcast]);
+
 							}
 						}
 						
-						// console.log('newPlaylist', newPlaylist);
+
 
 						// playlistKey = playlist;
-						// console.log(key);
+
 						newState.push({ key: playlist, playlist_title: user[playlist].playlist_title, data: newPlaylist });
 					}
-					// console.log(newState);
 
-					console.log('playlistKey', playlistKey);
-					console.log('newState', newState);
 					this.setState({
 						userPlaylists: newState,
 					})
@@ -131,8 +127,6 @@ class App extends Component {
         // Handle Errors here.
         const errorCode = error.code;
 				const errorMessage = error.message;
-				console.log(errorCode);
-				console.log(errorMessage);
         // ...
       });
 
@@ -141,7 +135,6 @@ class App extends Component {
           // User is signed in.
           // var isAnonymous = user.isAnonymous;
 					const uid = user.uid;
-					console.log(uid);
 
 					this.setState({
 						uid,
@@ -150,7 +143,6 @@ class App extends Component {
           // ...
         } else {
 					// User is signed out.
-					console.log('User signed out');
           // ...
         }
         // ...
@@ -172,7 +164,7 @@ class App extends Component {
 
     const len_min = 4;
     const len_max = parseInt(userTime) + 5;
-    // console.log({len_min, len_max})
+
 
     listenApi("search", {
       q: genreString,
@@ -183,8 +175,6 @@ class App extends Component {
       // sort_by_date: 1,
       language: "English",
     }).then(response => {
-      console.log(response);
-      console.log(response.data.results);
       this.setState({
         podcasts: response.data.results,
         isLoading: false,
@@ -196,7 +186,6 @@ class App extends Component {
 
     // listenApi("best_podcasts", { genre_id: this.state.genre }).then(
     //   (response) => {
-    //     console.log(response.data.podcasts);
     //     this.setState(
     //       {
     //         podcasts: response.data.podcasts,
@@ -229,7 +218,7 @@ class App extends Component {
   //   podcastIDs.forEach((id, index) => {
   //     listenApi(`podcasts/${id}`).then((response) => {
   //       const episodes = response.data.episodes;
-  //       console.log(episodes);
+
 
   //       // get average time of episodes
   //       const avg_minutes = this.getAverageTime(episodes);
@@ -243,7 +232,7 @@ class App extends Component {
   //     });
    
   //   });
-  //   // console.log(listCopy);
+
 
   //   // replace podcast state with new list containing average minutes
 
@@ -260,7 +249,7 @@ class App extends Component {
   //   // converting average time from seconds to minutes for each podcast
   //   const minutes = Math.round(total / episodes.length / 60);
 
-  //   console.log(minutes);
+
   //   return minutes;
   // }
 
@@ -317,7 +306,7 @@ class App extends Component {
    * @param {string} key 
    */
 	removePlaylist = key => {
-		console.log('removePlaylist', key);
+
 		const dbRef = firebase.database().ref();
 		const { uid, userPlaylists } = this.state;
 		dbRef.child('users').child(uid).child(key).remove();
@@ -350,13 +339,13 @@ class App extends Component {
 		const dbRef = firebase.database().ref();
 		const { uid, currentPlaylist, playlistName } = this.state;
 		const newKey = dbRef.child('users').child(uid).push().key;
-		// console.log('newKey', newKey);
+
 
 
 		this.setState({
 			currentPlaylist: newKey,
 		}, () => {
-			console.log({uid, currentPlaylist, podcast});
+
 			dbRef.child('users').child(uid).child(newKey).set({playlist_title: "Untitled Playlist"});
 			dbRef.child('users').child(uid).child(newKey).push(podcast);
 		})
@@ -364,7 +353,7 @@ class App extends Component {
 
 	/** set the currently active playlist */
 	setActivePlaylist = key => {
-		console.log('active: ', key);
+
 		this.setState({
 			currentPlaylist: key,
 		})
@@ -378,7 +367,7 @@ class App extends Component {
 	renamePlaylist = key => {
 		const dbRef = firebase.database().ref();
 		const { uid, currentPlaylist, playlistName } = this.state;
-		console.log('rename', key, playlistName);
+
 
 		dbRef.child('users').child(uid).child(currentPlaylist).child('playlist_title').set(playlistName);
 	}
@@ -393,7 +382,6 @@ class App extends Component {
   
   // rerenders the page when the user clicks next page
   nextPage = (event) => {
-    console.log('clicked!')
     // const offset = this.state.offset;
     this.setState({
       offset: this.state.offset + 10,
@@ -422,7 +410,6 @@ class App extends Component {
   render() {
 		const { isLoading, podcasts, userPlaylists, userTime, genres, currentPlaylist, playlistName, isStarted } = this.state;
 
-		// console.log(this.removePlaylistItem);
 
     // const HeaderProps = {
     //   setUserTime: this.setUserTime,
@@ -481,6 +468,7 @@ class App extends Component {
                   current={currentPlaylist}
                   rename={this.renamePlaylist}
                   updateName={this.updatePlaylistName}
+                  userTime={this.state.userTime}
                   title={playlistName}
                 />}
               />
