@@ -27,6 +27,7 @@ class App extends Component {
       genreString: "",
       podcasts: [],
 			userTime: 20,
+			selectedTime: 20,
 			isStarted: false,
 			isLoading: false,
 			userPlaylist: [],
@@ -34,9 +35,7 @@ class App extends Component {
 			userPlaylists: [],
 			currentPlaylist: '',
       playlistName: '',
-
       offset: 10,
-
     };
   }
 
@@ -48,7 +47,7 @@ class App extends Component {
         genres: response.data.genres,
       });
     }).catch(error => {
-			alert(errorResponse(error));
+			swal(errorResponse(error));
 		});
     // get podcasts at runtime (any genre)
 		// this.getPodcasts();
@@ -157,6 +156,7 @@ class App extends Component {
 		this.setState({
 			isStarted: true,
 			isLoading: true,
+			selectedTime: this.state.userTime,
 		})
 
     // const genreString = this.state.genreString;
@@ -180,7 +180,7 @@ class App extends Component {
         isLoading: false,
       })
 		}).catch(error => {
-			alert(errorResponse(error));
+			swal(errorResponse(error));
 		});
 
 
@@ -438,7 +438,7 @@ class App extends Component {
                 <div className="podcastContainer">
                   <Route exact path="/" 
                   render={(props) => <Podcast {...props}
-                  podcasts={podcasts} add={this.addToPlaylist} sort={this.sortPodcasts} /> }
+                  podcasts={podcasts} add={this.addToPlaylist} sort={this.sortPodcasts} isStarted={isStarted} /> }
                   /> 
                   <div class="page wrapper">
 
@@ -467,7 +467,7 @@ class App extends Component {
                   current={currentPlaylist}
                   rename={this.renamePlaylist}
                   updateName={this.updatePlaylistName}
-                  userTime={this.state.userTime}
+                  userTime={this.state.selectedTime}
                   title={playlistName}
                 />}
               />

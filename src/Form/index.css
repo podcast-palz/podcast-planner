@@ -6,7 +6,7 @@
 
 label,
 input,
-span, 
+form span, 
 select,
 button {
     margin: 10px;

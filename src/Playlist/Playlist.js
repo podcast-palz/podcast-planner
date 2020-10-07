@@ -21,6 +21,8 @@ export default class Playlist extends Component {
 	}
 	
 
+
+
 	render() {
 		const { playlist, title, removeItem, remove, setActive, current, rename, updateName, userTime } = this.props;
 		const { key, playlist_title } = playlist;
@@ -34,17 +36,22 @@ export default class Playlist extends Component {
 				document.getElementById(playlist.key).blur();
 			}
 		}
+
     // Display time information for user
     const showTime = () => {
-      return (
-        <li>
-          {Math.round(totalTime.reduce((a, b) => a + b))} / {userTime} Minutes
+			const total = Math.round(totalTime.reduce((a, b) => a + b))
+			return (
+        <li className="showTime">
+					<p> <span className={total > userTime ? 'alert' : ''}>{total}</span> / {userTime} Minutes</p>
         </li>
       )
-    }
+		}
+		
     return (
       <li key={key} className={`Playlist ${key === current ? 'selected' : ''}`} onClick={() => setActive(key, this.state.currentTitle)}>
     
+				{/* <input type="text" name="" id=""/>
+				<label htmlFor=""></label> */}
         <h3>
           <label className="sr-only" htmlFor={key}>{playlist_title}</label>
           <input 
@@ -80,8 +87,9 @@ export default class Playlist extends Component {
               );
               }
           })}
-          {totalTime.length != 0 ? (showTime()) : null}
         </ul>
+
+        {totalTime.length != 0 ? (showTime()) : null}
   
       </li>
     )

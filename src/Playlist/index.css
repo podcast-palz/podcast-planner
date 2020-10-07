@@ -1,12 +1,21 @@
 /* Playlist */
 .Playlist {
+	cursor: pointer;
+
 	padding: 2rem 1rem;
 	margin-bottom: 1rem;
 
-	border: 1px solid white;
+	border: 2px solid white;
 	border-radius: 2rem;
 
 	position: relative;
+	
+}
+
+.Playlist:hover {
+	/* background-color: #298776; */
+	/* background-color: #24554CDD; */
+	border: 2px solid #50C17F;
 }
 
 .Playlist h3 {
@@ -15,6 +24,9 @@
 }
 
 .Playlist input[type="text"] {
+	font-weight: bold;
+	/* text-transform: uppercase; */
+	
 	background-color: #1D3548;
 	color: white;
 	border: none;
@@ -86,5 +98,20 @@
 
 .Playlist.selected,
 .Playlist.selected input[type="text"] {
-	background-color: #365975;
+	background-color: #298776;
+}
+
+/* .Playlist.selected:hover,
+.Playlist.selected input[type="text"]:hover
+.Playlist.selected:hover input  {
+	background-color: #1D3548;
+} */
+
+
+li.showTime {
+	justify-content: center;
+}
+
+.Playlist .alert {
+	color: rgb(216, 53, 53);
 }
