@@ -28,7 +28,7 @@ export default function Form(props) {
 			</label>
 			<select onChange={selectGenre} name="genre" id="genre">
 				<option value="">
-							Select Genre ⬇
+					Select Genre ▼
 				</option>
 				{genres.map((genre) => {
 				return (

@@ -362,9 +362,9 @@ class App extends Component {
                   {this.state.podcasts.length !== 0 ? 
                   (<>
                     {this.state.offset >= 20 ? 
-                      (<button className="pageButton" onClick={() => this.prevPage()}>⬅ Previous Page</button>) 
+													(<button className="pageButton" onClick={() => this.prevPage()}>◄ Previous Page</button>) 
                       : (null) }  
-                    <button className="pageButton" onClick={() => this.nextPage()}>Next Page ➡</button>
+												<button className="pageButton" onClick={() => this.nextPage()}>Next Page ►</button>
                   </>)
                     : (null)}
 

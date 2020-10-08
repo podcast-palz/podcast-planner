@@ -17,8 +17,8 @@ export default function Podcast(props) {
 							<p className="sortTitle">Sort by Podcast Length:</p>
 						</div>
 						<div className="childTwoContainer">
-							<button className="sorting" onClick={() => sort('asc')}>Ascending ⬆</button>
-							<button className="sorting" onClick={() => sort('desc')}>Descending ⬇</button>
+									<button className="sorting" onClick={() => sort('asc')}>Ascending ▲</button>
+									<button className="sorting" onClick={() => sort('desc')}>Descending ▼</button>
 						</div>
 					</div>
 				
