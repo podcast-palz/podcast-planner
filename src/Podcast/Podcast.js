@@ -57,9 +57,7 @@ const getPodcastInfo = (podcast, add) => {
 	return (
 		<>
 			<h2>{podcastTitle}</h2>
-			<Link
-				to={{ pathname: `/podcast/${podcast.id}`, query: { podcast: podcast } }}>
-			</Link>
+
 			<a href={listennotes_url} rel="noreferrer">
 				<img src={thumbnail} alt={`Thumbnail for ${title_original}`} />
 			</a>
