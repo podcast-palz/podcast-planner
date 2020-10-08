@@ -116,8 +116,6 @@ class App extends Component {
 						uid,
 					})
 
-        } else {
-          swal('Error with firebase userID')
         }
       });
 	}
