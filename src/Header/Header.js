@@ -14,8 +14,8 @@ class Header extends Component {
 
 				<div className="flexContainer wrapper">
 					<div className="containerOne">
-						<div class="logo-container">
-							<img src={logo} className="logo"/>
+						<div className="logo-container">
+							<img alt="logo" src={logo} className="logo"/>
 							<h1>Podcast Planner</h1>
 						</div>
 						<p>Welcome to the Podcast Planner! Whether you're walking, hiking, road tripping or just plain hanging out, use this app to select podcast durations based on your journey time and create playlists!</p>

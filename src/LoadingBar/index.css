@@ -1,3 +1,5 @@
+/* LOADING BAR STYLES */
+
 .loading-bar,
 .loading-bar:before {
   height: 3px;
@@ -22,7 +24,6 @@
 	display: none;
 }
 
-
 @-webkit-keyframes running-progress {
   0% {
     margin-left: 0px;
@@ -37,6 +38,7 @@
     margin-right: 0;
   }
 }
+
 @keyframes running-progress {
   0% {
     margin-left: 0px;

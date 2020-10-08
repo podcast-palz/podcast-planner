@@ -1,13 +1,19 @@
+/* FOOTER STYLES */
+
 footer {
 	width: 100%;	 
 	position: absolute;
    bottom: 0;
 }
 
+footer a {
+   color:#1D3548;
+}
+
 .footerBar { 
    text-align: center;
    background-color: #1D3548;
-   height: 6vh;
+   height: 7rem;
 }
 
 .containerDiv {
@@ -26,12 +32,39 @@ footer {
 
 .containerDiv a:hover,
 .containerDiv a:focus {
-   color: #1D3548;
+   color: #a9cbe7;
 }
 
 .junoMade { 
-   font-size: 12px;
-   /* margin-top: 4rem; */
+   font-size: 1.6rem;
    background: linear-gradient(10deg, #298776 0%, rgba(255, 255, 255, 0) 100%), linear-gradient(90deg, #1D3548 0%, rgba(255, 255, 255, 0) 100%), #50C17F;
 }
 
+.junoMade .wrapper {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.creators li {
+   display: inline-block;
+   padding: 0.5rem;
+}
+
+.creators a {
+   padding: 0.5rem;
+}
+
+
+@media (max-width: 960px) {
+   .junoMade .wrapper {
+      flex-direction: column;
+   }
+}
+
+@media (max-width: 768px) {
+   .footerBar {
+      height: 8vh;
+   }
+
+}
