@@ -23,15 +23,18 @@ button {
   padding: 0;
   font-weight: normal;
 }
+
 /* Strip ul default styling  */
 ul {
   list-style: none;
 }
+
 /* Strip anchor tag default styling  */
 a {
   text-decoration: none;
   color: inherit;
 }
+
 /* Strip button default styling (and add pointer cursor)  */
 button {
 	font-family: inherit;
@@ -40,6 +43,7 @@ button {
   background: none;
   cursor: pointer;
 }
+
 /* ensure images fit inside container  */
 img {
   width: 100%;
@@ -48,22 +52,25 @@ img {
   object-fit: cover;
   display: block;
 }
+
 /* strip default address styling  */
 address {
   font-style: normal;
 }
+
 /* set root font size to 10px for simple rem conversion  */
 html {
   font-size: 62.5%;
 }
+
 body {
 	font-size: 1.6rem;
 	overflow-x: hidden;
 }
+
 select {
 	font-family: inherit;
 }
-
 
 html {
   scroll-behavior: smooth;
@@ -76,4 +83,3 @@ h1, h2, h3, h4 {
 body {
     font-family: 'Hind Siliguri', sans-serif;
 }
-

@@ -6,8 +6,6 @@ export default function LoadingBar(props) {
 	const { loading } = props;
 	
 	return (
-		<div className={`loading-bar ${loading ? '' : 'disabled'}`}>
-			
-		</div>
+		<div className={`loading-bar ${loading ? '' : 'disabled'}`}></div>
 	)
 }
