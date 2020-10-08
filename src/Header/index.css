@@ -106,8 +106,12 @@ header p {
 }
 
 @media (max-width: 375px) {
-    .flexContainer {
-        margin-top: 12px;
+    header {
+        height: 90vh; 
+    }
+    
+    .navBar {
+        margin-bottom: 20px;
     }
 }
 
