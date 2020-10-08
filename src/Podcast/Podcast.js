@@ -43,7 +43,7 @@ export default function Podcast(props) {
  * @param {*} podcast 
  */
 const getPodcastInfo = (podcast, add) => {
-	const { audio_length_sec, description_original, thumbnail, title_original } = podcast;
+	const { audio_length_sec, description_original, thumbnail, title_original, listennotes_url } = podcast;
 	const podcastTitle = podcast.podcast.title_original;
 	
 	const duration = Math.round(
@@ -59,8 +59,11 @@ const getPodcastInfo = (podcast, add) => {
 			<h2>{podcastTitle}</h2>
 			<Link
 				to={{ pathname: `/podcast/${podcast.id}`, query: { podcast: podcast } }}>
-				<img src={thumbnail} alt='' />
 			</Link>
+			<a href={listennotes_url} rel="noreferrer">
+				<img src={thumbnail} alt={`Thumbnail for ${title_original}`} />
+			</a>
+
 			<h3>{title_original}</h3>
 			<p>Length: {duration} minutes</p>
 			<p>{shortDescription}</p>
