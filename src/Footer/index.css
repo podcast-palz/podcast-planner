@@ -55,7 +55,7 @@ footer a {
    padding: 0.5rem;
 }
 
-
+/* MEDIA QUERIES */
 @media (max-width: 960px) {
    .junoMade .wrapper {
       flex-direction: column;

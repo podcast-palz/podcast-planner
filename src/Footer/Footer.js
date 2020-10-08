@@ -5,10 +5,10 @@ import "./index.css";
 class Footer extends Component {
    render() {
       return(
-            <footer>
-               <div className="footerBar">
-                  <div className="wrapper container">
-                     <div>
+         <footer>
+            <div className="footerBar">
+               <div className="wrapper container">
+                  <div>
                      <ScrollUpButton
                         StopPosition={0}
                         ShowAtPosition={130}
@@ -19,36 +19,35 @@ class Footer extends Component {
                         style={{}}
                         ToggledStyle={{}}
                      /> 
-                     </div>
-                  </div>
-                  <div className="containerDiv">
-                        
-                        <div className="wrapper">
-                           <h3>{this.props.isStarted ? 'Podcast Planner' : 'Podcast Planner - Start Listening Today!'}</h3>
-                        </div>
-                        <div className="junoMade">
-                           <div className="wrapper">
-                              <p>Created at <a href="https://junocollege.com/">Juno College</a> by</p>
-                              <ul className="creators">
-                                 <li>
-                                    <a href="https://github.com/nkanigsberg">Nathan Kanigsberg</a>
-                                 </li>
-                                 <li>
-                                    <a href="https://github.com/pfreemanc">Paige Freeman-Cyopeck</a>
-                                 </li>
-                                 <li>
-                                    <a href="https://github.com/redawaseem">Reda Waseem</a>
-                                 </li>
-                                 <li>
-                                    <a href="https://github.com/jalexgould">Alex Gould</a>
-                                 </li>
-                              </ul>
-                              <p>© Copyright 2020</p>
-                           </div>
-                        </div>
                   </div>
                </div>
-            </footer>
+               <div className="containerDiv">
+                  <div className="wrapper">
+                     <h3>Podcast Planner</h3>
+                  </div>
+                  <div className="junoMade">
+                     <div className="wrapper">
+                        <p>Created at <a href="https://junocollege.com/">Juno College</a> by</p>
+                        <ul className="creators">
+                           <li>
+                              <a href="https://github.com/nkanigsberg">Nathan Kanigsberg</a>
+                           </li>
+                           <li>
+                              <a href="https://github.com/pfreemanc">Paige Freeman-Cyopeck</a>
+                           </li>
+                           <li>
+                              <a href="https://github.com/redawaseem">Reda Waseem</a>
+                           </li>
+                           <li>
+                              <a href="https://github.com/jalexgould">Alex Gould</a>
+                           </li>
+                        </ul>
+                        <p>© Copyright 2020</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </footer>
       )
    }
 }

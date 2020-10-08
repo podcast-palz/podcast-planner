@@ -18,7 +18,7 @@ export default class Playlist extends Component {
 	}
 
 	render() {
-		const { playlist, title, removeItem, remove, setActive, current, rename, updateName, userTime } = this.props;
+		const { playlist, removeItem, remove, setActive, current, updateName, userTime } = this.props;
 		const { key, playlist_title } = playlist;
     const totalTime = [];
 
@@ -49,61 +49,58 @@ export default class Playlist extends Component {
           aria-label="Select Playlist"
         ></button>
 
-          <h3>
-            <label className="sr-only" htmlFor={key}>
-              {playlist_title}
-            </label>
-            <input
-              onChange={updateName}
-              // onBlur={() => rename(key)}
-              onKeyDown={unfocus}
-              type="text"
-              id={key}
-              value={playlist_title}
-              placeholder="Untitled Playlist"
-            />
-          </h3>
+        <h3>
+          <label className="sr-only" htmlFor={key}>
+            {playlist_title}
+          </label>
+          <input
+            onChange={updateName}
+            onKeyDown={unfocus}
+            type="text"
+            id={key}
+            value={playlist_title}
+            placeholder="Untitled Playlist"
+          />
+        </h3>
 
-          <button className="Playlist-delete" onClick={() => remove(key)} aria-label="Delete Playlist">
-            <FontAwesomeIcon icon={faTimes}/>
-          </button>
+        <button className="Playlist-delete" onClick={() => remove(key)} aria-label="Delete Playlist">
+          <FontAwesomeIcon icon={faTimes}/>
+        </button>
 
-          <ul>
-            {playlist.data.map((podcast) => {
-              // if podcast has data, and isn't the title
-              if (podcast.data && podcast.key !== "playlist_title") {
-                const {
-                  title_original,
-                  listennotes_url,
-                  audio_length_sec,
-                } = podcast.data;
-                const minutes = parseInt(audio_length_sec) / 60;
-                totalTime.push(minutes);
-                // {totalTime.push()}
-                return (
-                  <li key={podcast.key}>
-                    <a href={listennotes_url} rel="noreferrer">
-                      {title_original}
-                    </a>
-                    <button
-                      className="remove"
-                      onClick={() => removeItem(podcast.key)}
-                      aria-label="Remove Podcast"
-                    >
-                      <FontAwesomeIcon icon={faTrashAlt} />
-                    </button>
-                  </li>
-                );
-              }
-            })}
-          </ul>
-          <ul>
-          {totalTime.length != 0 ? showTime() : null}
-          </ul>
-        {/* </button> */}
+        <ul>
+          {playlist.data.map((podcast) => {
+            // if podcast has data, and isn't the title
+            if (podcast.data && podcast.key !== "playlist_title") {
+              const {
+                title_original,
+                listennotes_url,
+                audio_length_sec,
+              } = podcast.data;
+              const minutes = parseInt(audio_length_sec) / 60;
+              totalTime.push(minutes);
+              return (
+                <li key={podcast.key}>
+                  <a href={listennotes_url} rel="noreferrer">
+                    {title_original}
+                  </a>
+                  <button
+                    className="remove"
+                    onClick={() => removeItem(podcast.key)}
+                    aria-label="Remove Podcast"
+                  >
+                    <FontAwesomeIcon icon={faTrashAlt} />
+                  </button>
+                </li>
+              );
+            }
+          })}
+        </ul>
+        <ul>
+        {totalTime.length !== 0 ? showTime() : null}
+        </ul>
       </li>
     );
   }
-  }
+}
   
 

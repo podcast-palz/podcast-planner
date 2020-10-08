@@ -61,8 +61,6 @@ header p {
     padding-right: 1rem;
 }
 
-
-
 @media (max-width: 768px) {
     .flexContainer {
         flex-direction: column;
@@ -98,13 +96,18 @@ header p {
     .containerTwo {
         width: 60%; 
     }
-
 }
 
 @media (max-width: 480px) {
     .containerOne,
     .containerTwo {
         width: 100%;
+    }
+}
+
+@media (max-width: 375px) {
+    .flexContainer {
+        margin-top: 12px;
     }
 }
 

@@ -23,14 +23,11 @@
   display: grid;
   gap: 20px;
   grid-template-rows: minmax(25px, 70px) auto minmax(20px, auto) minmax(20px, auto) auto 50px;
-  /* padding: 25px 20px; */
   padding: calc(1rem + 1.5vw) calc(0.5rem + 1vw);
-
-
   background-color: rgba(255, 255, 255, 0.872);
   color:#1D3548;
   border-radius: 30px;
-  /* transition: all .4s; */
+  overflow: hidden
 }
 
 .podcast p {
@@ -51,7 +48,6 @@
   color: #fff;
   transform: scale(1.1);
   border-radius: 11px;
-  /* box-shadow: 2px 2px 5px #fff; */
 } 
 
 .podcast h2,
@@ -64,7 +60,6 @@
   color: #1D3548;
   border-radius: 5px;
   align-self: center;
-  /* font-weight: bold; */
 }
 
 .podcast img {
@@ -91,8 +86,6 @@
   display: flex;
   align-items: center; 
 }
-
-
 
 @media (max-width: 960px) {
   .podcastList {

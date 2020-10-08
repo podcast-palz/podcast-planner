@@ -23,17 +23,17 @@ export default function Podcast(props) {
 					</div>
 				
 					<ul className="podcastList">
-							{podcasts.map((podcast) => {
-								return (
-									<li className="podcast" key={podcast.id}> 
-										{getPodcastInfo(podcast, add)} 
-									</li> 
-								)
-							})}
-						</ul>
+						{podcasts.map((podcast) => {
+							return (
+								<li className="podcast" key={podcast.id}> 
+									{getPodcastInfo(podcast, add)} 
+								</li> 
+							)
+						})}
+					</ul>
 				</div>
 			</div>
-		}
+			}
 		</div>
 	)
 }
@@ -57,8 +57,6 @@ const getPodcastInfo = (podcast, add) => {
 	return (
 		<>
 			<h2>{podcastTitle}</h2>
-			{/* <Link to={{ pathname: `/${this.props.testvalue}`, query: { backUrl } }} /> */}
-
 			<Link
 				to={{ pathname: `/podcast/${podcast.id}`, query: { podcast: podcast } }}>
 				<img src={thumbnail} alt='' />
@@ -66,7 +64,6 @@ const getPodcastInfo = (podcast, add) => {
 			<h3>{title_original}</h3>
 			<p>Length: {duration} minutes</p>
 			<p>{shortDescription}</p>
-
 			<button onClick={() => add(podcast)}>Add To Playlist</button>
 		</>
 	)

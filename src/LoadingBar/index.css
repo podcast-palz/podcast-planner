@@ -5,15 +5,16 @@
   height: 3px;
   width: 100%;
 	margin: 0;
-	
 	position: absolute;
 	bottom: 0;
 }
+
 .loading-bar {
   background-color: #b3d4fc;
 	display: flex;
 	margin-top: 1rem;
 }
+
 .loading-bar:before {
   background-color: #3f51b5;
   content: "";

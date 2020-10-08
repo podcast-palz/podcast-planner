@@ -22,20 +22,26 @@ export default function Form(props) {
 
 			{/* genre select */}
 			<label htmlFor="genre"></label>
-			
-			<label htmlFor="genre" className="sr-only">Select genre</label>
+
+			<label htmlFor="genre" className="sr-only">
+				Select genre
+			</label>
 			<select onChange={selectGenre} name="genre" id="genre">
-				<option value="">Select Genre ⬇</option>
+				<option value="">
+							Select Genre ⬇
+				</option>
 				{genres.map((genre) => {
-					return (
-						<option className="options" key={genre.id} value={genre.id}>
-							{genre.name}
-						</option>
-					);
+				return (
+					<option className="options" key={genre.id} value={genre.id}>
+					{genre.name}
+					</option>
+				);
 				})}
 			</select>
-			
-			<button onClick={handleSubmit} type="submit" className="headerButton">Submit</button>
+
+			<button onClick={handleSubmit} type="submit" className="headerButton">
+				Submit
+			</button>
 		</form>
-	)
+  	);
 }
