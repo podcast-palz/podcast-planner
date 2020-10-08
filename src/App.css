@@ -37,11 +37,12 @@ button:focus {
   font-size: 25px;
   letter-spacing: 5px;
   margin-top: 20px;
+  margin-bottom: 40px;
 }
 
 .pageButton {
   padding: 10px 20px;
-  margin-bottom: 25px;
+  margin-bottom: 40px;
 }
 
 .page {

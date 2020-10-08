@@ -1,13 +1,11 @@
-/* Playlist */
+/* PLAYLIST STYLES */
+
 .Playlist {
 	cursor: pointer;
-
 	padding: 2rem 1rem;
 	margin-bottom: 1rem;
-
 	border: 2px solid white;
 	border-radius: 2rem;
-
 	position: relative;	
 	z-index: 50;
 }
@@ -19,8 +17,6 @@
 }
 
 .Playlist:hover {
-	/* background-color: #298776; */
-	/* background-color: #24554CDD; */
 	border: 2px solid #50C17F;
 }
 
@@ -31,16 +27,12 @@
 
 .Playlist input[type="text"] {
 	font-weight: bold;
-	/* text-transform: uppercase; */
-	
 	background-color: #1D3548;
 	color: white;
 	border: 2px solid #1D3548;
 	border-radius: 0.5rem;
-
 	font-family: 'Poiret One', cursive;
 	text-transform: initial;
-
 	width: 80%;
 	padding: 0.5rem;
 }
@@ -53,18 +45,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-
 	padding: 0.2rem 0;
-
 	height: 100%;
 }
 
 .Playlist a {
 	width: 100%;
 	height: 100%;
-
 	padding: 0.5rem;
-
 	border-radius: 0.5rem;
 }
 
@@ -76,7 +64,6 @@
 .Playlist button.remove {
 	width: 3.8rem;
 	height: 3.8rem;
-
 	flex-shrink: 0;
 }
 
@@ -84,14 +71,11 @@
 .Playlist-delete {
 	background: none;
 	color: white;
-
 	position: absolute;
 	top: 0;
 	right: 0;
-
 	width: auto;
 	height: auto;
-
 	padding: 1rem;
 }
 
@@ -115,7 +99,7 @@
 }
 
 .Playlist.selected input[type="text"]:hover {
-border: 2px solid #FFFFFF88;
+	border: 2px solid #FFFFFF88;
 }
 
 /* .Playlist.selected:hover,
@@ -141,13 +125,19 @@ li.showTime {
 .Playlist .selectPlaylist {
 	z-index: 60;
 
-	/* position: absolute; */
-	top: 0;
-	left: 0;
+	position: absolute;
+	top: 1rem;
+	left: 2rem;	
 	/* width: 100%; */
 	/* height: 100%; */
-
 	margin: 0;
+}
+
+.Playlist .selectPlaylist:focus::before {
+	content: 'select this playlist';
+	/* background-color: #e9e9e9; */
+	color: white;
+	padding: 1rem;
 }
 
 /* .Playlist .selectPlaylist:hover,

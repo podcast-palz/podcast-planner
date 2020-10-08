@@ -330,7 +330,10 @@ class App extends Component {
 			this.createPlaylist(podcast);
 		} else { // if playlist has content
 			dbRef.child('users').child(uid).child(currentPlaylist).push(podcast);
-		}
+    }
+    
+    // toggle side menu
+    document.getElementById("hamburger").checked = true;
 	}
 
 
@@ -380,20 +383,28 @@ class App extends Component {
   
   // rerenders the page when the user clicks next page
   nextPage = (event) => {
-    // // const offset = this.state.offset;
-    // this.setState({
-    //   offset: this.state.offset + 10,
-    // })
-    // this.getPodcasts();
+    setTimeout(() => {
+      const offset = this.state.offset;
+      this.setState({
+        offset: this.state.offset + 10,
+      })
+      this.getPodcasts();
+    }, 400);
+
+    // scroll to top of page
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
 
   prevPage = (event) => {
-    // this.setState({
-    //   offset: this.state.offset - 10,
-    // })
-    // this.getPodcasts();
+    setTimeout(() => {
+      this.setState({
+        offset: this.state.offset - 10,
+      });
+      this.getPodcasts();
+    }, 400);
+
+    // scroll to top of page
     document.body.scrollTop = 0; // For Safari
     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
   }
@@ -407,6 +418,11 @@ class App extends Component {
     })
   }
 
+  // /** Close the side menu */
+  // closeMenu() {
+  //   // toggle side menu
+  //   document.getElementById("hamburger").checked = false;
+  // }
 
 
   render() {
@@ -433,14 +449,14 @@ class App extends Component {
                   selectGenre={this.selectGenre}
                   genres={genres}
 									handleSubmit={this.handleSubmit}
-									loading={isLoading} />} 
+                  loading={isLoading} />}
               />
       
               {!isStarted ? <p className="loading">Select Genre to Continue</p> :
               isLoading ? (
                 <p className="loading">Loading...</p>
               ) : (
-                <div className="podcastContainer">
+                <main className="podcastContainer">
                   <Route exact path="/" 
                   render={(props) => <Podcast {...props}
                   podcasts={podcasts} add={this.addToPlaylist} sort={this.sortPodcasts} isStarted={isStarted} /> }
@@ -457,10 +473,10 @@ class App extends Component {
                       : (null)}
 
                   </div>
-                </div>
+                </main>
               )}
 
-              <Route path="/podcast/:podcastID" component={PodcastInfo} />
+              {/* <Route path="/podcast/:podcastID" component={PodcastInfo} /> */}
           
               <Route exact path="/"
                 render={(props) => <SideMenu {...props}
@@ -478,7 +494,9 @@ class App extends Component {
               />
       
               <Route path="/"
-                render={(props) => <Footer {...props} />}
+                render={(props) => <Footer {...props} 
+                  isStarted={this.state.isStarted}
+                />}
               />
       
             </div>

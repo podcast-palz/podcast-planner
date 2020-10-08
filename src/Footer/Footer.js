@@ -22,8 +22,30 @@ class Footer extends Component {
                      </div>
                   </div>
                   <div className="containerDiv">
-                     <h3> Podcast Planner - Start Listening Today! </h3>
-                     <p className="junoMade">Podcast Planner Made by <span><a href="https://github.com/nkanigsberg">Nathan Kanigsberg</a></span>, <span><a href="https://github.com/pfreemanc">Paige Freeman-Cyopeck</a></span>, <span><a href="https://github.com/redawaseem">Reda Waseem</a></span> & <span><a href="https://github.com/jalexgould">Alex Gould</a></span> at <span><a href="https://junocollege.com/">Juno College 2020</a></span></p>
+                        
+                        <div className="wrapper">
+                           <h3>{this.props.isStarted ? 'Podcast Planner' : 'Podcast Planner - Start Listening Today!'}</h3>
+                        </div>
+                        <div className="junoMade">
+                           <div className="wrapper">
+                              <p>Created at <a href="https://junocollege.com/">Juno College</a> by</p>
+                              <ul className="creators">
+                                 <li>
+                                    <a href="https://github.com/nkanigsberg">Nathan Kanigsberg</a>
+                                 </li>
+                                 <li>
+                                    <a href="https://github.com/pfreemanc">Paige Freeman-Cyopeck</a>
+                                 </li>
+                                 <li>
+                                    <a href="https://github.com/redawaseem">Reda Waseem</a>
+                                 </li>
+                                 <li>
+                                    <a href="https://github.com/jalexgould">Alex Gould</a>
+                                 </li>
+                              </ul>
+                              <p>© Copyright 2020</p>
+                           </div>
+                        </div>
                   </div>
                </div>
             </footer>

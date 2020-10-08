@@ -1,6 +1,8 @@
+/* HEADER STYLES */
+
 header {
-  height: 80vh; 
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    height: 85vh; 
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     position: relative;   
 }
 
@@ -58,3 +60,51 @@ header p {
     width: 6rem; 
     padding-right: 1rem;
 }
+
+
+
+@media (max-width: 768px) {
+    .flexContainer {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .containerOne {
+        width: 80%;
+        text-align: center;
+    }
+
+    .logo-container img {
+        position: static;
+        left: 0;
+
+        width: 6rem; 
+        padding-right: 0;
+
+    }
+
+    .logo-container {
+        flex-direction: column;
+    }
+
+    .containerOne {
+        position: static;
+        left: 0;
+        width: 80%;
+        flex-direction: row; 
+        padding-bottom: 4rem;
+    }
+
+    .containerTwo {
+        width: 60%; 
+    }
+
+}
+
+@media (max-width: 480px) {
+    .containerOne,
+    .containerTwo {
+        width: 100%;
+    }
+}
+

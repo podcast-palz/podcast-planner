@@ -5,7 +5,7 @@ label[for="hamburger"] {
 	z-index: 100;
 	position: fixed;
 	right: 4rem;
-	top: 1rem;
+	top: 3rem;
 }
 
 #hamburger {
@@ -36,8 +36,8 @@ label[for="hamburger"] {
 :not(:checked) + label[for="hamburger"]::before {
 	content: 'Your Playlists';
 	position: fixed;
-	right: 9.2rem;
-	top: 2.6rem;
+	right: 9.3rem;
+	top: 4.5rem;
 	color: white;
 
 	background-color: #1D3548;
@@ -51,8 +51,6 @@ label[for="hamburger"] {
 :not(:checked) + label[for="hamburger"]:hover::before {
 	opacity: 100%
 }
-
-
 
 
 #hamburger:checked + label {
@@ -79,10 +77,10 @@ label[for="hamburger"]:hover,
 .SideMenu {
 	z-index: 90;
 	position: fixed;
-	right: -32rem;
+	right: -48rem;
 	top: 0;
 
-	width: 32rem;
+	width: 48rem;
 	height: 100vh;
 
 	padding: 2rem;
@@ -106,3 +104,17 @@ label[for="hamburger"]:hover,
 	padding-bottom: 2.8rem;
 }
 
+
+@media (max-width: 768px) {
+	.SideMenu {
+		right: -40rem;
+		width: 40rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.SideMenu {
+		right: -32rem;
+		width: 32rem;
+	}
+}

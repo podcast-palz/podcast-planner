@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
-
 import './index.css'
-
 
 export default class Playlist extends Component {
 	constructor() {
@@ -19,7 +16,6 @@ export default class Playlist extends Component {
 			currentTitle: this.props.playlist.playlist_title,
 		})
 	}
-	
 
 	render() {
 		const { playlist, title, removeItem, remove, setActive, current, rename, updateName, userTime } = this.props;
@@ -44,16 +40,14 @@ export default class Playlist extends Component {
         </li>
       )
 		}
-    
-
+  
     return (
       <li key={key} className={`Playlist ${key === current ? "selected" : ""}`} onClick={() => setActive(key, this.state.currentTitle)}>
         <button
           onClick={() => setActive(key, this.state.currentTitle)}
           className="selectPlaylist"
+          aria-label="Select Playlist"
         ></button>
-          {/* <input type="text" name="" id=""/>
-				<label htmlFor=""></label> */}
 
           <h3>
             <label className="sr-only" htmlFor={key}>
@@ -70,8 +64,8 @@ export default class Playlist extends Component {
             />
           </h3>
 
-          <button className="Playlist-delete" onClick={() => remove(key)}>
-            <FontAwesomeIcon icon={faTimes} />
+          <button className="Playlist-delete" onClick={() => remove(key)} aria-label="Delete Playlist">
+            <FontAwesomeIcon icon={faTimes}/>
           </button>
 
           <ul>
@@ -94,6 +88,7 @@ export default class Playlist extends Component {
                     <button
                       className="remove"
                       onClick={() => removeItem(podcast.key)}
+                      aria-label="Remove Podcast"
                     >
                       <FontAwesomeIcon icon={faTrashAlt} />
                     </button>
@@ -102,8 +97,9 @@ export default class Playlist extends Component {
               }
             })}
           </ul>
-
+          <ul>
           {totalTime.length != 0 ? showTime() : null}
+          </ul>
         {/* </button> */}
       </li>
     );
