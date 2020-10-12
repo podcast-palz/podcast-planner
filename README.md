@@ -1,5 +1,4 @@
 # Podcast Planner
-<br><br>
 App for creating playlists of podcasts within provided timeframe. Uses React, listennotes REST API, and Firebase with anonymous athentication.
 <br><br>
 Created by Nathan Kanigsberg, Paige Freeman-Cyopeck, Reda Waseem, Alex Gould at Juno College
