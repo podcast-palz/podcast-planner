@@ -1,4 +1,4 @@
-<strong>Podcast Planner</strong>
+# Podcast Planner
 <br><br>
 App for creating playlists of podcasts within provided timeframe. Uses React, listennotes REST API, and Firebase with anonymous athentication.
 <br><br>
